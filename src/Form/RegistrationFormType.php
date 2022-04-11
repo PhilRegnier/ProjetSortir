@@ -41,6 +41,7 @@ class RegistrationFormType extends AbstractType
             ->add('telephone')
             ->add('actif')
             ->add('administrateur')
+            ->add('campus')
         ;
     }
 
