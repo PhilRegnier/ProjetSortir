@@ -9,6 +9,7 @@ header {
 .main-title {
     font-size: 50px;
     margin: auto;
+    text-decoration: none;
 }
 .main-content {
     width: 1200px;
