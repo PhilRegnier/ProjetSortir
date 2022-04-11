@@ -9,9 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
-#[UniqueEntity(fields: ['mail'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['mail'], message: 'Ce pseudo est déjà utilisé.')]
+#[UniqueEntity(fields: ['mail'], message: 'Cette adresse email est déjà utilisée.')]
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -23,16 +25,22 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\Regex(pattern: "/^[a-zA-Z]+$/")]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\Regex(pattern: "/^[a-zA-Z]+$/")]
     private $prenom;
 
     #[ORM\Column(type: 'string', length: 10)]
     private $telephone;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Assert\Email(message: "Wrong email address.")]
     private $mail;
+
+    #[ORM\Column(type: 'string', length: 30, unique: true)]
+    private $pseudo;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $motPasse;
@@ -53,9 +61,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class, orphanRemoval: true)]
     private $sortiesOrganisees;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true)]
-    private $pseudo;
-
     public function __construct()
     {
         $this->sortiesInscrites = new ArrayCollection();
@@ -75,6 +80,18 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }
@@ -268,18 +285,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
                 $sortiesOrganisees->setOrganisateur(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
 
         return $this;
     }
