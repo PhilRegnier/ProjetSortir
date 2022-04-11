@@ -3,13 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
-#[UniqueEntity(fields: ['mail'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['mail'], message: 'Ce pseudo est déjà utilisé.')]
+#[UniqueEntity(fields: ['mail'], message: 'Cette adresse email est déjà utilisée.')]
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -21,16 +25,22 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\Regex(pattern: "/^[a-zA-Z]+$/")]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\Regex(pattern: "/^[a-zA-Z]+$/")]
     private $prenom;
 
     #[ORM\Column(type: 'string', length: 10)]
     private $telephone;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Assert\Email(message: "Wrong email address.")]
     private $mail;
+
+    #[ORM\Column(type: 'string', length: 30, unique: true)]
+    private $pseudo;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $motPasse;
@@ -40,6 +50,22 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $actif;
+
+    #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'participants')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $campus;
+
+    #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'inscrits')]
+    private $sortiesInscrites;
+
+    #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class, orphanRemoval: true)]
+    private $sortiesOrganisees;
+
+    public function __construct()
+    {
+        $this->sortiesInscrites = new ArrayCollection();
+        $this->sortiesOrganisees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -54,6 +80,18 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }
@@ -178,6 +216,75 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortiesInscrites(): Collection
+    {
+        return $this->sortiesInscrites;
+    }
+
+    public function addSortiesInscrite(Sortie $sortiesInscrite): self
+    {
+        if (!$this->sortiesInscrites->contains($sortiesInscrite)) {
+            $this->sortiesInscrites[] = $sortiesInscrite;
+            $sortiesInscrite->addInscrit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortiesInscrite(Sortie $sortiesInscrite): self
+    {
+        if ($this->sortiesInscrites->removeElement($sortiesInscrite)) {
+            $sortiesInscrite->removeInscrit($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortiesOrganisees(): Collection
+    {
+        return $this->sortiesOrganisees;
+    }
+
+    public function addSortiesOrganisees(Sortie $sortiesOrganisees): self
+    {
+        if (!$this->sortiesOrganisees->contains($sortiesOrganisees)) {
+            $this->sortiesOrganisees[] = $sortiesOrganisees;
+            $sortiesOrganisees->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortiesOrganisees(Sortie $sortiesOrganisees): self
+    {
+        if ($this->sortiesOrganisees->removeElement($sortiesOrganisees)) {
+            // set the owning side to null (unless already changed)
+            if ($sortiesOrganisees->getOrganisateur() === $this) {
+                $sortiesOrganisees->setOrganisateur(null);
+            }
+        }
 
         return $this;
     }
