@@ -3,7 +3,7 @@
 {% block title %}Se connecter{% endblock %}
 
 {% block body %}
-<form method="post">
+<form class="login-form" method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -13,6 +13,7 @@
             Vous êtes connecté en tant que {{ app.user.pseudo }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
         </div>
     {% endif %}
+
 
     <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
     <label for="inputUsername">Pseudo ou Email</label>
