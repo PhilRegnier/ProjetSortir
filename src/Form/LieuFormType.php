@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Campus;
 use App\Entity\Lieu;
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,6 +23,12 @@ class LieuFormType extends AbstractType
                 [
                     'class' => Ville::class,
                     'choice_label' => 'nom'
+                ])
+            ->add('codePostal',
+                EntityType::class,
+                [
+                    'class' => Ville::class,
+                    'choice_label' => 'codePostal'
                 ])
         ;
     }

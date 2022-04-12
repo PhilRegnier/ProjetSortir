@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Campus;
+use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -20,7 +22,6 @@ class SortieFormType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
-            ->add('etat')
             ->add('lieu',
                 EntityType::class,
                 [
@@ -34,8 +35,6 @@ class SortieFormType extends AbstractType
                     'choice_label' => 'nom'
                 ]
             )
-            ->add('inscrits')
-            ->add('organisateur')
         ;
     }
 
