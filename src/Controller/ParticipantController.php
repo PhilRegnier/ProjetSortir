@@ -39,7 +39,7 @@ class ParticipantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('plainPassword') === $form->get('confirmation')) {
+            if ($form->get('plainPassword')->getData() === $form->get('confirmation')->getData()) {
                 $user->setMotPasse(
                     $userPasswordHasher->hashPassword(
                         $user,
@@ -57,7 +57,7 @@ class ParticipantController extends AbstractController
                 );
             }
             else {
-                $this->addFlash('warning', 'Les mots de passe saisis sont différents.');
+                $this->addFlash('danger', 'Les mots de passe saisis sont différents.');
             }
         }
         return $this->render('participant/profil.html.twig', [
