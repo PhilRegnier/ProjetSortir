@@ -72,10 +72,10 @@ class ParticipantRepository extends ServiceEntityRepository implements PasswordU
         return $entityManager->createQuery(
             'SELECT p
                 FROM App\Entity\Participant p
-                WHERE p.pseudo = :query
-                OR p.mail = :query'
+                WHERE p.pseudo = :parametre
+                OR p.mail = :parametre'
         )
-            ->setParameter('query', $identifier)
+            ->setParameter('parametre', $identifier)
             ->getOneOrNullResult();
     }
     // /**
