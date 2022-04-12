@@ -2,7 +2,13 @@
     <a  class="main-title" href="{{ path('main_connecte') }}">
         <h1 class="main-title">SORTIR.COM</h1>
     </a>
-    <a href="{{ path('app_register') }}">S'inscrire</a>
-    <a href="{{ path('app_login') }}">Se connecter</a>
-    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    {% if not app.user %}
+        <a href="{{ path('app_register') }}">S'inscrire</a>
+        <a href="{{ path('app_login') }}">Se connecter</a>
+    {% endif %}
+    {% if app.user %}
+        <a href="{{ path('main_connecte') }}">Accueil</a>
+        <a href="{{ path('participant_profil') }}">Mon profil</a>
+        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    {% endif %}
 </header>
