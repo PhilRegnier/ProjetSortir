@@ -54,6 +54,7 @@ footer {
 }
 .profil-title {
     margin-top: 50px;
+    margin-bottom: 100px;
     text-align: center;
     font-size: 35px;
 }
@@ -66,7 +67,7 @@ footer {
     width: 196px;
     height: 196px;
 }
-.profil-form {
+.participant-form {
     /*border: solid 1px black;*/
     width: 500px;
     height: 600px;

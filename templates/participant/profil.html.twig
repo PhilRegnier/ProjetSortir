@@ -7,18 +7,18 @@
         <div class="profil-pic">
             <img class="avatar" src="{{ asset('../ressources/images/avatar/' ~ app.user.image) }}" alt="avatar">
         </div>
-        <div class="profil-form">
-            {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.pseudo, { label: 'Pseudo' }) }}
-            {{ form_row(registrationForm.prenom, { label: 'Prénom' }) }}
-            {{ form_row(registrationForm.nom, { label: 'Nom' }) }}
-            {{ form_row(registrationForm.telephone, { label: 'Téléphone' }) }}
-            {{ form_row(registrationForm.mail) }}
-            {{ form_row(registrationForm.plainPassword, { label: 'Mot de passe' }) }}
-            {{ form_row(registrationForm.campus, { label: 'Campus' }) }}
+        <div class="participant-form">
+            {{ form_start(participantForm) }}
+            {{ form_row(participantForm, { label: 'Pseudo' }) }}
+            {{ form_row(participantForm.prenom, { label: 'Prénom' }) }}
+            {{ form_row(participantForm.nom, { label: 'Nom' }) }}
+            {{ form_row(participantForm.telephone, { label: 'Téléphone' }) }}
+            {{ form_row(participantForm.mail) }}
+            {{ form_row(participantForm.plainPassword, { label: 'Mot de passe' }) }}
+            {{ form_row(participantForm.campus, { label: 'Campus' }) }}
             <button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
             <button type="reset" class="btn btn-lg btn-primary">Annuler</button>
-            {{ form_end(registrationForm) }}
+            {{ form_end(participantForm) }}
         </div>
     </div>
 {% endblock %}
