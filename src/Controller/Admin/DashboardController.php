@@ -2,6 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Campus;
+use App\Entity\Participant;
+use App\Entity\Ville;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -35,12 +38,14 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('ProjetSortir');
+            ->setTitle('Sortir.com - Admin');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Participant', 'fas fa-list', Participant::Class);
+        yield MenuItem::linkToCrud('Campus', 'fas fa-list', Campus::Class);
+        yield MenuItem::linkToCrud('Ville', 'fas fa-list', Ville::Class);
     }
 }

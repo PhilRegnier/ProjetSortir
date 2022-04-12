@@ -33,3 +33,25 @@ footer {
 .register-form {
     padding: 100px;
 }
+/*CSS lié au profil du participant*/
+.profil-bloc {
+    margin-bottom: 50px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+.profil-title {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 35px;
+}
+.profil-pic {
+    border: solid 1px black;
+    width: 200px;
+    height: 200px;
+}
+.profil-form {
+    /*border: solid 1px black;*/
+    width: 500px;
+    height: 600px;
+}
