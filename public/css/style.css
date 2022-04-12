@@ -41,11 +41,12 @@ footer {
     justify-content: space-around;
 }
 .profil-title {
+    margin-top: 50px;
     text-align: center;
     font-size: 35px;
 }
 .profil-pic {
-    /*border: solid 1px black;*/
+    border: solid 1px black;
     width: 200px;
     height: 200px;
 }

@@ -8,7 +8,7 @@
     {% endif %}
     {% if app.user %}
         <a href="{{ path('main_connecte') }}">Accueil</a>
-        <a href="{{ path('participant_profil') }}">Mon profil</a>
+        <a href="{{ path('participant_profil', { 'id' : app.user.id }) }}">Mon profil</a>
         <a href="{{ path('app_logout') }}">Se déconnecter</a>
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('admin') }}">admin</a>

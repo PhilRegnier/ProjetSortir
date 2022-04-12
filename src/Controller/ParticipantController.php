@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
-use App\Form\RegistrationFormType;
+use App\Form\ProfilFormType;
+use App\Repository\ParticipantRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,34 +24,45 @@ class ParticipantController extends AbstractController
         ]);
     }
 
-    #[Route('/participant/profil', name: 'participant_profil')]
+    #[Route('/participant/profil{id}', name: 'participant_profil', requirements: ["id" => "\d+"])]
     public function monProfil(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         UserAuthenticatorInterface $userAuthenticator,
         AppAuthenticator $authenticator,
+        EntityManagerInterface $entityManager,
+        Participant $user
     ): Response
     {
-        $participant = new Participant();
-        $form = $this->createForm(RegistrationFormType::class, $participant);
+        $user->setPseudo($this->getUser()->getPseudo());
+        $user->setPrenom($this->getUser()->getPrenom());
+        $user->setNom($this->getUser()->getNom());
+        $user->setTelephone($this->getUser()->getTelephone());
+        $user->setMail($this->getUser()->getMail());
+        $user->setCampus($this->getUser()->getCampus());
+        $form = $this->createForm(ProfilFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $participant->setMotPasse(
+            $user->setMotPasse(
                 $userPasswordHasher->hashPassword(
-                    $participant,
+                    $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-//            $entityManager->persist($participant);
-//            $entityManager->flush();
+
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
             return $userAuthenticator->authenticateUser(
-                $participant,
+                $user,
                 $authenticator,
                 $request
             );
         }
-        return $this->render('participant/profil.html.twig');
+        return $this->render('participant/profil.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
     }
 }
