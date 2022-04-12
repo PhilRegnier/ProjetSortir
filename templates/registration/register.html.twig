@@ -3,7 +3,6 @@
 {% block title %}Nouveau profil{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
 
     <div class="register-form">
         <h1>S'inscrire</h1>
@@ -17,8 +16,8 @@
             {{ form_row(registrationForm.campus, { label: 'Campus' }) }}
             {{ form_row(registrationForm.actif, { label: 'Actif' }) }}
             {{ form_row(registrationForm.administrateur, { label: 'Administrateur' }) }}
-            <button type="submit" class="btn">Enregistrer</button>
-            <button type="reset" class="btn">Annuler</button>
+            <button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
+            <button type="reset" class="btn btn-lg btn-primary">Annuler</button>
         {{ form_end(registrationForm) }}
     </div>
     

@@ -6,6 +6,18 @@ header {
     border: solid 1px;
     margin: auto;
 }
+.header-links {
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+}
+.header-link {
+    text-decoration: none;
+    padding-left: 50px;
+    font-size: 25px;
+    margin: auto;
+    color: black;
+}
 .main-title {
     font-size: 50px;
     margin: auto;
@@ -46,9 +58,13 @@ footer {
     font-size: 35px;
 }
 .profil-pic {
-    border: solid 1px black;
+    border: solid 2px slategrey;
     width: 200px;
     height: 200px;
+}
+.avatar {
+    width: 196px;
+    height: 196px;
 }
 .profil-form {
     /*border: solid 1px black;*/
