@@ -24,6 +24,7 @@ class SortieController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
+
         $sortie = new Sortie();
         $form = $this->createForm(AjouterSortieFormType::class);
         $form->handleRequest($request);
