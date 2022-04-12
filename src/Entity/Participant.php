@@ -36,10 +36,11 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $telephone;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    #[Assert\Email(message: "Wrong email address.")]
+    #[Assert\Email(message: "Addresse email non valide.")]
     private $mail;
 
     #[ORM\Column(type: 'string', length: 30, unique: true)]
+    #[Assert\Regex(pattern: "/^[a-zA-Z0-9]+$/")]
     private $pseudo;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -204,6 +205,10 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdministrateur(bool $administrateur): self
     {
         $this->administrateur = $administrateur;
+        if ($administrateur)
+        {
+            $this->roles[] = 'ROLE_ADMIN';
+        }
 
         return $this;
     }
@@ -240,20 +245,20 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->sortiesInscrites;
     }
 
-    public function addSortiesInscrite(Sortie $sortiesInscrite): self
+    public function addSortieInscrite(Sortie $sortie): self
     {
-        if (!$this->sortiesInscrites->contains($sortiesInscrite)) {
-            $this->sortiesInscrites[] = $sortiesInscrite;
-            $sortiesInscrite->addInscrit($this);
+        if (!$this->sortiesInscrites->contains($sortie)) {
+            $this->sortiesInscrites[] = $sortie;
+            $sortie->addInscrit($this);
         }
 
         return $this;
     }
 
-    public function removeSortiesInscrite(Sortie $sortiesInscrite): self
+    public function removeSortieInscrite(Sortie $sortie): self
     {
-        if ($this->sortiesInscrites->removeElement($sortiesInscrite)) {
-            $sortiesInscrite->removeInscrit($this);
+        if ($this->sortiesInscrites->removeElement($sortie)) {
+            $sortie->removeInscrit($this);
         }
 
         return $this;
@@ -267,22 +272,22 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->sortiesOrganisees;
     }
 
-    public function addSortiesOrganisees(Sortie $sortiesOrganisees): self
+    public function addSortieOrganisee(Sortie $sortie): self
     {
-        if (!$this->sortiesOrganisees->contains($sortiesOrganisees)) {
-            $this->sortiesOrganisees[] = $sortiesOrganisees;
-            $sortiesOrganisees->setOrganisateur($this);
+        if (!$this->sortiesOrganisees->contains($sortie)) {
+            $this->sortiesOrganisees[] = $sortie;
+            $sortie->setOrganisateur($this);
         }
 
         return $this;
     }
 
-    public function removeSortiesOrganisees(Sortie $sortiesOrganisees): self
+    public function removeSortieOrganisee(Sortie $sortie): self
     {
-        if ($this->sortiesOrganisees->removeElement($sortiesOrganisees)) {
+        if ($this->sortiesOrganisees->removeElement($sortie)) {
             // set the owning side to null (unless already changed)
-            if ($sortiesOrganisees->getOrganisateur() === $this) {
-                $sortiesOrganisees->setOrganisateur(null);
+            if ($sortie->getOrganisateur() === $this) {
+                $sortie->setOrganisateur(null);
             }
         }
 
