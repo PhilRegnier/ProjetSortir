@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ProfilFormType extends AbstractType
+class ParticipantFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
