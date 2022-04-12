@@ -2,23 +2,25 @@
 
 {% block body %}
     <h1>Créer une sortie</h1>
-    {{ form_start(ajouterSortieForm) }}
-    {{ form_row(ajouterSortieForm.nom, { label: "Nom :" }) }}
-    {{ form_row(ajouterSortieForm.dateHeureDebut, { label: "Date et heure de la sortie :" }) }}
-    {{ form_row(ajouterSortieForm.dateLimiteInscription, { label: "Date limite d'inscription :" }) }}
-    {{ form_row(ajouterSortieForm.nbInscriptionsMax, { label: "Nombre de places :" }) }}
-    {{ form_row(ajouterSortieForm.duree, { label: "Durée :" }) }}
-    {{ form_row(ajouterSortieForm.infosSortie, { label: "Description et infos :" }) }}
-    {{ form_row(ajouterSortieForm.campus, { label: "Campus :" }) }}
-    {{ form_row(ajouterSortieForm.ville, { label: "Ville :" }) }}
-    {{ form_row(ajouterSortieForm.lieu, { label: "Lieu :" }) }}
-    {{ form_row(ajouterSortieForm.rue, { label: "Rue :" }) }}
-    {{ form_row(ajouterSortieForm.codePostal, { label: "Code postal :" }) }}
-    {{ form_row(ajouterSortieForm.latitude, { label: "Latitude :" }) }}
-    {{ form_row(ajouterSortieForm.longitude, { label: "Longitude :" }) }}
+    {{ form_start(sortieForm) }}
+    {{ form_row(sortieForm.nom, { label: "Nom :" }) }}
+    {{ form_row(sortieForm.dateHeureDebut, { label: "Date et heure de la sortie :" }) }}
+    {{ form_row(sortieForm.dateLimiteInscription, { label: "Date limite d'inscription :" }) }}
+    {{ form_row(sortieForm.nbInscriptionsMax, { label: "Nombre de places :" }) }}
+    {{ form_row(sortieForm.duree, { label: "Durée :" }) }}
+    {{ form_row(sortieForm.infosSortie, { label: "Description et infos :" }) }}
+    {{ form_row(sortieForm.campus, { label: "Campus :" }) }}
+        {{ form_start(lieuForm) }}
+            {{ form_row(lieuForm.ville, { label: "Ville :" }) }}
+            {{ form_row(lieuForm.codePostal, { label: "Code postal :" }) }}
+            {{ form_row(lieuForm.rue, { label: "Rue :" }) }}
+            {{ form_row(lieuForm.latitude, { label: "Latitude :" }) }}
+            {{ form_row(lieuForm.longitude, { label: "Longitude :" }) }}
+        {{ form_end(lieuForm) }}
+    {{ form_row(sortieForm.lieu, { label: "Lieu :" }) }}
     <button type="submit" class="btn">Enregistrer</button>
     <button type="reset" class="btn">Annuler</button>
-    {{ form_end(ajouterSortieForm) }}
+    {{ form_end(sortieForm) }}
 {% endblock %}
 
 {% block title %}
