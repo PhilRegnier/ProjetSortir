@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,13 @@ class MainController extends AbstractController
     #[Route('/main', name: 'main_connecte')]
     #[IsGranted ('ROLE_USER')]
     public function AccueilConnecte(
-        ParticipantRepository $participantRepository
+        ParticipantRepository $participantRepository,
+        SortieRepository $sortieRepository
     ): Response
     {
         $participants = $participantRepository->findAll();
-        return $this->render('main/index.html.twig',compact("participants"));
+        $sorties = $sortieRepository->findAll();
+
+        return $this->render('main/index.html.twig',compact("participants", "sorties"));
     }
 }

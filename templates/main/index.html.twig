@@ -3,10 +3,13 @@
 {% block title %}{{ parent() }} | Accueil{% endblock %}
 
 {% block body %}
-<p>page accueil connecté</p>
+<p>page d'accueil connecté</p>
 <ul>
     {% for participant in participants %}
         <li><a href="{{ path('participant_detail', {'id': participant.id}) }}">{{ participant.prenom }}</a></li>
+    {% endfor %}
+    {% for sortie in sorties %}
+        <li><a href="{{ path('sortie_detail', {'id': sortie.id}) }}">{{ sortie.nom }}</a></li>
     {% endfor %}
 </ul>
     <a href="{{ path('sortie_ajouter') }}">Créer une sortie</a>
