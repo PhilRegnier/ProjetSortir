@@ -6,6 +6,7 @@ use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: VilleRepository::class)]
 class Ville
@@ -21,6 +22,7 @@ class Ville
     #[ORM\Column(type: 'string', length: 5)]
     private $codePostal;
 
+    #[MaxDepth(1)]
     #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Lieu::class, orphanRemoval: true)]
     private $lieux;
 

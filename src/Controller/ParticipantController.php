@@ -17,16 +17,16 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 #[Route('/participant', name: 'participant')]
 class ParticipantController extends AbstractController
 {
-    #[Route('/profil{id}', name: '_profil', requirements: ["id" => "\d+"])]
+    #[Route('/monprofil', name: '_monprofil')]
     public function monProfil(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         UserAuthenticatorInterface $userAuthenticator,
         AppAuthenticator $authenticator,
-        EntityManagerInterface $entityManager,
-        Participant $user
+        EntityManagerInterface $entityManager
     ): Response
     {
+        $user = $this->getUser();
         $user->setPseudo($this->getUser()->getPseudo());
         $user->setPrenom($this->getUser()->getPrenom());
         $user->setNom($this->getUser()->getNom());
