@@ -19,8 +19,10 @@ class MainController extends AbstractController
     #[Route('/main', name: 'main_connecte')]
     #[IsGranted ('ROLE_USER')]
     public function AccueilConnecte(
+        ParticipantRepository $participantRepository
     ): Response
     {
-        return $this->render('main/index.html.twig');
+        $participants = $participantRepository->findAll();
+        return $this->render('main/index.html.twig',compact("participants"));
     }
 }

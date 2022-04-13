@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="profil-title">{{ participant.pseudo }}</h1>
+    <div class="profil-bloc">
+        <div class="profil-pic">
+            <img class="avatar" src="{{ asset('../ressources/images/avatar/' ~ participant.image) }}" alt="avatar">
+        </div>
+        <div class="participant-form">
+            <p>Prénom : {{ participant.prenom }}</p>
+            <p>Nom : {{ participant.nom }}</p>
+            <p>Téléphone : {{ participant.telephone }}</p>
+            <p>Email : {{ participant.mail }}</p>
+            <p>Campus : {{ participant.campus.nom }}</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}

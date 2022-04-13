@@ -4,5 +4,10 @@
 
 {% block body %}
 <p>page accueil connecté</p>
+<ul>
+    {% for participant in participants %}
+        <li><a href="{{ path('participant_detail', {'id': participant.id}) }}">{{ participant.prenom }}</a></li>
+    {% endfor %}
+</ul>
     <a href="{{ path('sortie_ajouter') }}">Créer une sortie</a>
 {% endblock %}
