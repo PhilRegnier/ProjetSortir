@@ -9,18 +9,38 @@
     {{ form_row(sortieForm.nbInscriptionsMax, { label: "Nombre de places :" }) }}
     {{ form_row(sortieForm.duree, { label: "Durée :" }) }}
     {{ form_row(sortieForm.infosSortie, { label: "Description et infos :" }) }}
-    {{ form_row(sortieForm.campus, { label: "Campus :" }) }}
-        {{ form_start(lieuForm) }}
-            {{ form_row(lieuForm.ville, { label: "Ville :" }) }}
-            {{ form_row(lieuForm.codePostal, { label: "Code postal :" }) }}
-            {{ form_row(lieuForm.rue, { label: "Rue :" }) }}
-            {{ form_row(lieuForm.latitude, { label: "Latitude :" }) }}
-            {{ form_row(lieuForm.longitude, { label: "Longitude :" }) }}
-        {{ form_end(lieuForm) }}
-    {{ form_row(sortieForm.lieu, { label: "Lieu :" }) }}
+    Campus : {{ app.user.campus.nom }}
+
+    <div class="mb-3 row">
+        <label for="ville">Ville</label>
+        <div class="col-sm-10" name="ville[nom]">
+            <select class="form-select" id="ville">
+            {% for ville in villes %}
+                <option value="{{ ville.id }}">{{ ville.nom }}</option>
+            {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="lieu">Lieu</label>
+        <div class="col-sm-10" name="lieu[nom]">
+            <select class="form-select" id="lieu"></select>
+        </div>
+    </div>
+
+    <p>Code postal : <span id="codePostal"></span></p>
+    <p>Rue : <span id="rue"></span></p>
+    <p>Latitude : <span id="latitude"></span></p>
+    <p>Longitude : <span id="longitude"></span></p>
+
     <button type="submit" class="btn">Enregistrer</button>
     <button type="reset" class="btn">Annuler</button>
     {{ form_end(sortieForm) }}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('js/ajout_sortie.js') }}"></script>
+
 {% endblock %}
 
 {% block title %}
