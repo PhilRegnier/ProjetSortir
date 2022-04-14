@@ -9,7 +9,7 @@
     {% endif %}
     {% if app.user %}
         <a class="header-link" href="{{ path('main_connecte') }}">Accueil</a>
-        <a class="header-link" href="{{ path('participant_profil', { 'id' : app.user.id }) }}">Mon profil</a>
+        <a class="header-link" href="{{ path('participant_monprofil') }}">Mon profil</a>
         <a class="header-link" href="{{ path('app_logout') }}">Se déconnecter</a>
         {% if is_granted('ROLE_ADMIN') %}
             <a  class="header-link" href="{{ path('admin') }}">admin</a>

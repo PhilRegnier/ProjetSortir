@@ -6,6 +6,7 @@ use App\Entity\Sortie;
 use App\Form\LieuFormType;
 use App\Form\SortieFormType;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,23 +19,23 @@ class SortieController extends AbstractController
     #[Route('/ajouter', name: '_ajouter')]
     public function ajouter(
         Request $request,
+        VilleRepository $villeRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
-
         $sortie = new Sortie();
         $form = $this->createForm(SortieFormType::class);
         $form->handleRequest($request);
-        $lieuForm = $this->createForm(LieuFormType::class);
-        $lieuForm->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $entityManager->persist($sortie);
             $entityManager->flush();
         }
 
+        $villes = $villeRepository->findAll();
+
         return $this->render('sortie/ajouter.html.twig',[
             "sortieForm" => $form->createView(),
-            "lieuForm"  => $lieuForm->createView()
+            "villes"  => $villes
         ]);
     }
 
