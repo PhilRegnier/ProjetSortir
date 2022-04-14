@@ -45,32 +45,93 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Sortie[] Returns an array of Sortie objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByWithFilter
+    ($campus, $nomSortie, $dateSortieDebut, $dateSortieFin,
+     $organisateur, $inscrit, $pasInscrit, $sortiesPassees): array
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+//        dump($campus);
+//        dump($nomSortie);
+//        dump($dateSortieDebut);
+//        dump($dateSortieFin);
+//        dump($organisateur);
+//        dump($inscrit);
+//        dump($pasInscrit);
 
-    /*
-    public function findOneBySomeField($value): ?Sortie
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $queryBuilder = $this->createQueryBuilder('w');
+        if (!empty($campus)) {
+            $queryBuilder
+                ->andWhere('w.campus = :campus')
+                ->setParameter('campus', $campus);
+        }
+        if (!empty($nomSortie)) {
+            $queryBuilder
+                ->andWhere('w.nom LIKE :nomSortie')
+                ->setParameter('nomSortie', '%' . $nomSortie . '%');
+        }
+        if (!empty($dateSortieDebut)) {
+//            $queryBuilder
+//                ->andWhere('w.dateHeureDebut LIKE :dateSortieDebut')
+//                ->setParameter('dateSortieDebut', $dateSortieDebut);
+        }
+        if (!empty($dateSortieFin)) {
+//            $queryBuilder
+//                ->andWhere('w.dateHeureDebut LIKE :dateSortieDebut')
+//                ->setParameter('dateSortieDebut', $dateSortieDebut);
+        }
+        if (!empty($organisateur)) {
+            $queryBuilder
+                ->andWhere('w.organisateur LIKE :organisateur')
+                ->setParameter('organisateur', $organisateur);
+        }
+        if (!empty($inscrit)) {
+//            $queryBuilder
+//                ->andWhere('w.organisateur LIKE :organisateur')
+//                ->setParameter('organisateur', $organisateur);
+        }
+        if (!empty($pasInscrit)) {
+//            $queryBuilder
+//                ->andWhere('w.organisateur LIKE :organisateur')
+//                ->setParameter('organisateur', $organisateur);
+        }
+        if (!empty($sortiesPassees)) {
+//            $queryBuilder
+//                ->andWhere('w.organisateur LIKE :organisateur')
+//                ->setParameter('organisateur', $organisateur);
+        }
+//        $queryBuilder
+//            ->orderBy('w.id', 'ASC')
+//            ->setMaxResults(100);
+
+            return $queryBuilder->getQuery()->getResult();
+        }
+
+        // /**
+        //  * @return Sortie[] Returns an array of Sortie objects
+        //  */
+        /*
+        public function findByExampleField($value)
+        {
+            return $this->createQueryBuilder('s')
+                ->andWhere('s.exampleField = :val')
+                ->setParameter('val', $value)
+                ->orderBy('s.id', 'ASC')
+                ->setMaxResults(10)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+        */
+
+        /*
+        public function findOneBySomeField($value): ?Sortie
+        {
+            return $this->createQueryBuilder('s')
+                ->andWhere('s.exampleField = :val')
+                ->setParameter('val', $value)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+        }
+        */
+
     }
-    */
-}
