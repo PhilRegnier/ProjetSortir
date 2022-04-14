@@ -64,4 +64,12 @@ class ParticipantController extends AbstractController
             'participantForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/detail{id}', name: '_detail', requirements: ["id" => "\d+"])]
+    public function detail(
+        Participant $participant
+    ):Response
+    {
+        return $this->render('participant/detail.html.twig', compact("participant"));
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Form\LieuFormType;
 use App\Form\SortieFormType;
+use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,5 +37,13 @@ class SortieController extends AbstractController
             "sortieForm" => $form->createView(),
             "villes"  => $villes
         ]);
+    }
+
+    #[Route('/detail/{id}', name: '_detail', requirements: ["id" => "\d+"])]
+    public function detail(
+        Sortie $sortie
+    ): Response
+    {
+        return $this->render('sortie/detail.html.twig', compact("sortie"));
     }
 }
