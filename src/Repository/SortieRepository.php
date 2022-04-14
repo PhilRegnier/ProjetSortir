@@ -45,60 +45,52 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByWithFilter(
-        $campus,
-        $nomSortie,
-        $dateSortieDebut,
-        $dateSortieFin,
-        $organisateur,
-        $inscrit,
-        $pasInscrit,
-        $sortiesPassees): array
+    public function findByWithFilter($filtre): array
     {
         $queryBuilder = $this->createQueryBuilder('s');
-        if (!empty($campus)) {
+        if (!empty($filtre['campus'])) {
             $queryBuilder
                 ->andWhere('s.campus = :campus')
-                ->setParameter('campus', $campus);
+                ->setParameter('campus', $filtre['campus']);
         }
-        if (!empty($nomSortie)) {
+        if (!empty($filtre['nomSortie'])) {
             $queryBuilder
                 ->andWhere('s.nom LIKE :nomSortie')
-                ->setParameter('nomSortie', '%' . $nomSortie . '%');
+                ->setParameter('nomSortie', '%' . $filtre['nomSortie'] . '%');
         }
-        if (!empty($dateSortieDebut)) {
-//            $queryBuilder
-//                ->andWhere('w.dateHeureDebut LIKE :dateSortieDebut')
-//                ->setParameter('dateSortieDebut', $dateSortieDebut);
-        }
-        if (!empty($dateSortieFin)) {
-//            $queryBuilder
-//                ->andWhere('w.dateHeureDebut LIKE :dateSortieDebut')
-//                ->setParameter('dateSortieDebut', $dateSortieDebut);
-        }
-        if (!empty($organisateur)) {
+        if (!empty($filtre['dateSortieDebut'])) {
             $queryBuilder
-                ->andWhere('w.organisateur LIKE :organisateur')
+                ->andWhere('s.dateHeureDebut LIKE :dateSortieDebut')
+                ->setParameter('dateSortieDebut', $filtre['dateSortieDebut']);
+        }
+        if (!empty($filtre['$dateSortieFin'])) {
+            $queryBuilder
+                ->andWhere('s.dateHeureDebut LIKE :dateSortieDebut')
+                ->setParameter('dateSortieDebut', $filtre['$dateSortieFin']);
+        }
+        if (!empty($filtre['organisateur'])) {
+            $queryBuilder
+                ->andWhere('s.organisateur LIKE :organisateur')
+                ->setParameter('organisateur', $filtre['organisateur']);
+        }
+        if (!empty($filtre['inscrit'])) {
+            $queryBuilder
+                ->andWhere('s.organisateur LIKE :organisateur')
                 ->setParameter('organisateur', $organisateur);
         }
-        if (!empty($inscrit)) {
-//            $queryBuilder
-//                ->andWhere('w.organisateur LIKE :organisateur')
-//                ->setParameter('organisateur', $organisateur);
+        if (!empty($filtre['pasInscrit'])) {
+            $queryBuilder
+                ->andWhere('s.organisateur LIKE :organisateur')
+                ->setParameter('organisateur', $filtre['pasInscrit']);
         }
-        if (!empty($pasInscrit)) {
-//            $queryBuilder
-//                ->andWhere('w.organisateur LIKE :organisateur')
-//                ->setParameter('organisateur', $organisateur);
+        if (!empty($filtre['etat'])) {
+            $queryBuilder
+                ->andWhere('s.organisateur LIKE :organisateur')
+                ->setParameter('organisateur', $organisateur);
         }
-        if (!empty($sortiesPassees)) {
-//            $queryBuilder
-//                ->andWhere('w.organisateur LIKE :organisateur')
-//                ->setParameter('organisateur', $organisateur);
-        }
-//        $queryBuilder
-//            ->orderBy('w.id', 'ASC')
-//            ->setMaxResults(100);
+        $queryBuilder
+            ->orderBy('s.dateHeureDebut', 'ASC')
+            ->setMaxResults(100);
 
             return $queryBuilder->getQuery()->getResult();
         }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -27,6 +28,7 @@ class MainController extends AbstractController
     #[IsGranted ('ROLE_USER')]
     public function AccueilConnecte(
         SortieRepository $sortieRepository,
+        ParticipantRepository $participantRepository,
         Request $request
     ): Response
     {
@@ -61,36 +63,46 @@ class MainController extends AbstractController
 
             ->getForm();
 
+        $filtre = [];
         $filtreForm->handleRequest($request);
 
-        //Si des filtres ont été appliqués, on récupère les datas pour les exploiter dans findByWithFilter()
-        if ($filtreForm->isSubmitted() && $filtreForm->isValid()
-            && (!empty ($filtreForm->get('campus')->getData())
-            || !empty ($filtreForm->get('nomSortie')->getData())
-            || !empty ($filtreForm->get('dateSortieDebut')->getData())
-            || !empty ($filtreForm->get('dateSortieFin')->getData())
-            || !empty ($filtreForm->get('organisateur')->getData())
-            || !empty ($filtreForm->get('inscrit')->getData())
-            || !empty ($filtreForm->get('pasInscrit')->getData())
-            || !empty ($filtreForm->get('sorties')->getData())))
+        if ($filtreForm->isSubmitted() && $filtreForm->isValid())
         {
-            $sortiesListe = $sortieRepository->findByWithFilter
-            (
-                $filtreForm->get('campus')->getData(),
-                $filtreForm->get('nomSortie')->getData(),
-                $filtreForm->get('dateSortieDebut')->getData(),
-                $filtreForm->get('dateSortieFin')->getData(),
-                $filtreForm->get('organisateur')->getData(),
-                $filtreForm->get('inscrit')->getData(),
-                $filtreForm->get('pasInscrit')->getData(),
-                $filtreForm->get('sorties')->getData()
-            );
+            if (!empty ($filtreForm->get('campus')->getData())) {
+                $filtre['campus'] = $filtreForm->get('campus')->getData();
+            }
+            if (!empty ($filtreForm->get('nomSortie')->getData())) {
+                $filtre['nomSortie'] = $filtreForm->get('nomSortie')->getData();
+            }
+            if (!empty ($filtreForm->get('dateSortieDebut')->getData())) {
+                $filtre['dateSortieDebut'] = $filtreForm->get('dateSortieDebut')->getData();
+            }
+            if (!empty ($filtreForm->get('dateSortieFin')->getData())) {
+                $filtre['dateSortieFin'] = $filtreForm->get('dateSortieFin')->getData();
+            }
+            if (!empty ($filtreForm->get('organisateur')->getData())) {
+                $filtre['organisateur'] = $filtreForm->get('organisateur')->getData();
+            }
+            if (!empty ($filtreForm->get('inscrit')->getData())) {
+                $filtre['inscrit'] = $filtreForm->get('inscrit')->getData();
+            }
+            if (!empty ($filtreForm->get('pasInscrit')->getData())) {
+                $filtre['pasInscrit'] = $filtreForm->get('pasInscrit')->getData();
+            }
+            if (!empty ($filtreForm->get('sortiesPassees')->getData())) {
+                $filtre['etat'] = [6];
+            }
         }
-        //Si aucun filtre, on retourne simplement la liste de toutes les sorties
         else
         {
-            $sortiesListe = $sortieRepository->findAll();
+            $user = $participantRepository
+                ->findOneBy(["mail" => $this->getUser()->getUserIdentifier()]);
+
+            $filtre['campus'] = $user->getCampus();
+            $filtre['etat'] = [1, 2, 3, 4, 5];
         }
+        $sortiesListe = $sortieRepository->findByWithFilter($filtre);
+
         return $this->render('main/index.html.twig',
             [
                 'filtreForm' => $filtreForm->createView(),
