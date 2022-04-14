@@ -2,25 +2,34 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['ville']]
+)]
 #[ORM\Entity(repositoryClass: VilleRepository::class)]
 class Ville
 {
+    #[Groups(['lieu', 'ville'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Groups(['lieu', 'ville'])]
     #[ORM\Column(type: 'string', length: 60)]
     private $nom;
 
+    #[Groups(['lieu', 'ville'])]
     #[ORM\Column(type: 'string', length: 5)]
     private $codePostal;
 
+    #[Groups('ville')]
     #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Lieu::class, orphanRemoval: true)]
     private $lieux;
 
