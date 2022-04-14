@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Créer un lieu</h1>
+    {{ form_start(lieuForm) }}
+    {{ form_row(lieuForm.ville, { label: "Ville : "}) }}
+    {{ form_row(lieuForm.codePostal, { label: "Code postal : "}) }}
+    {{ form_row(lieuForm.nom, { label: "Nom : "}) }}
+    {{ form_row(lieuForm.rue, { label: "rue : "}) }}
+    {{ form_row(lieuForm.latitude, { label: "Nom : "}) }}
+    {{ form_row(lieuForm.longitude, { label: "rue : "}) }}
+    {{ form_row(lieuForm.codePostal, { label: "Code postal : "}) }}
+    <button type="submit" class="btn">Enregistrer</button>
+    <button type="reset" class="btn">Annuler</button>
+    {{ form_end(lieuForm) }}
+
+
+{% endblock %}
+
+{% block title %}
+    Sortir.com - Ajout d'un lieu
+{% endblock %}

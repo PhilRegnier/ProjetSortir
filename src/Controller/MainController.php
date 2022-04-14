@@ -27,7 +27,6 @@ class MainController extends AbstractController
     #[IsGranted ('ROLE_USER')]
     public function AccueilConnecte(
         SortieRepository $sortieRepository,
-        EntityManagerInterface $em,
         Request $request
     ): Response
     {
@@ -95,7 +94,7 @@ class MainController extends AbstractController
         return $this->render('main/index.html.twig',
             [
                 'filtreForm' => $filtreForm->createView(),
-                'sortiesListe' =>$sortiesListe
+                'sortiesListe' => $sortiesListe
             ]
         );
     }

@@ -45,27 +45,25 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByWithFilter
-    ($campus, $nomSortie, $dateSortieDebut, $dateSortieFin,
-     $organisateur, $inscrit, $pasInscrit, $sortiesPassees): array
+    public function findByWithFilter(
+        $campus,
+        $nomSortie,
+        $dateSortieDebut,
+        $dateSortieFin,
+        $organisateur,
+        $inscrit,
+        $pasInscrit,
+        $sortiesPassees): array
     {
-//        dump($campus);
-//        dump($nomSortie);
-//        dump($dateSortieDebut);
-//        dump($dateSortieFin);
-//        dump($organisateur);
-//        dump($inscrit);
-//        dump($pasInscrit);
-
-        $queryBuilder = $this->createQueryBuilder('w');
+        $queryBuilder = $this->createQueryBuilder('s');
         if (!empty($campus)) {
             $queryBuilder
-                ->andWhere('w.campus = :campus')
+                ->andWhere('s.campus = :campus')
                 ->setParameter('campus', $campus);
         }
         if (!empty($nomSortie)) {
             $queryBuilder
-                ->andWhere('w.nom LIKE :nomSortie')
+                ->andWhere('s.nom LIKE :nomSortie')
                 ->setParameter('nomSortie', '%' . $nomSortie . '%');
         }
         if (!empty($dateSortieDebut)) {
