@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\EtatRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -53,6 +54,9 @@ class Sortie
     #[ORM\ManyToOne(targetEntity: Participant::class, inversedBy: 'sortiesOrganisees')]
     #[ORM\JoinColumn(nullable: false)]
     private $organisateur;
+
+    #[ORM\Column(type: 'string', length: 1000, nullable: true)]
+    private $motif;
 
     public function __construct()
     {
@@ -148,6 +152,13 @@ class Sortie
         return $this;
     }
 
+    public function setEtatById(int $id, ): self
+    {
+        $this->etat = $id;
+
+        return $this;
+    }
+
     public function getLieu(): ?Lieu
     {
         return $this->lieu;
@@ -204,6 +215,18 @@ class Sortie
     public function setOrganisateur(?Participant $organisateur): self
     {
         $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    public function getMotif(): ?string
+    {
+        return $this->motif;
+    }
+
+    public function setMotif(?string $motif): self
+    {
+        $this->motif = $motif;
 
         return $this;
     }

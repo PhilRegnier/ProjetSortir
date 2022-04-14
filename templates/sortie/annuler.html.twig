@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>page annuler sortie</h1>
+    <p>Nom de la sortie : {{ sortie.nom }}</p>
+    <p>Nom de la sortie : {{ sortie.dateHeureDebut | date("m/d/Y") }}</p>
+    <p>Campus : {{ sortie.campus.nom }}</p>
+    <p>Lieu : {{ sortie.lieu.nom }} {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</p>
+
+    {{ form_start(motifForm) }}
+    {{ form_row(motifForm.motif, {label : "Motif :"}) }}
+    <button>Valider</button>
+    {{ form_end(motifForm) }}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
