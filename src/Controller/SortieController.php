@@ -60,14 +60,14 @@ class SortieController extends AbstractController
     ): Response
     {
         $motifForm = $this->createFormBuilder()
-        ->add("motif", TextareaType::class)
+            ->add("motif", TextareaType::class)
             ->getForm();
 
         $motifForm->handleRequest($request);
 
         if ($motifForm->isSubmitted() && $motifForm->isValid()){
             $sortie->setMotif($motifForm->get("motif")->getData());
-            $etat = $etatRepository->findBy(["id" => 6]);
+            $etat = $etatRepository->find(6);
             $sortie->setEtat($etat);
             $entityManager->flush();
         }
