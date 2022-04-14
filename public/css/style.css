@@ -75,3 +75,94 @@ footer {
 .flash {
     text-align: center;
 }
+/*CSS Lié à la partie accueil en mode connecté*/
+.filtrer-title {
+    font-size: 20px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #0d6efd;
+}
+.bloc-filtres {
+    display: flex;
+    justify-content: space-between;
+    width: 1100px;
+    margin: 0 auto;
+    border: solid 1px #0d6efd;
+    border-radius: 15px;
+    padding: 15px;
+    background-color: #dbeafe;
+}
+.filtres-droite {
+    margin: auto;
+}
+.btn-chercher-sortie {
+    margin: auto;
+}
+.form-check-label {
+    width: 350px;
+    padding-bottom: 10px;
+}
+.plage-dates {
+    display: flex;
+    justify-content: space-between;
+}
+table {
+    margin: auto;
+    width: 1100px;
+}
+.mini-bloc-date {
+    padding: 10px;
+    margin-left: 900px;
+    margin-top: 30px;
+    /*border: solid 1px black;*/
+    font-weight: bold;
+}
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+}
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #dbeafe;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #0d6efd;
+}
+.btn-sortie {
+    margin-left: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 10px;
+    font-family: arial;
+    font-size: 1em;
+    color: #FFFFFF;
+    background-color: #548dd4;
+    border: none;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+.btn-sortie:hover {
+    padding: 10px;
+    color: #ffffff;
+    background-color: #17365d;
+    border: 0px solid #FFFFFF;
+}
