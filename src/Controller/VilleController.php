@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Ville;
 use App\Repository\LieuRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -51,5 +53,13 @@ class VilleController extends AbstractController
             $serializer->serialize($ville, 'json')
             //$serializer->normalize($lieux, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['']])
         ];
+    }
+
+    #[Route('/gerer', name: '_gerer')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function gerer(): Response
+    {
+
+        return $this->render('ville/gerer.html.twig');
     }
 }
