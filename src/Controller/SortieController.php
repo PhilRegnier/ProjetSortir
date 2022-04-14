@@ -7,9 +7,12 @@ use App\Entity\Sortie;
 use App\Form\LieuFormType;
 use App\Form\SortieFormType;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -21,16 +24,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/ajouter', name: '_ajouter')]
+    #[IsGranted('ROLE_USER')]
     public function ajouter(
         Request $request,
         VilleRepository $villeRepository,
+        EtatRepository $etatRepository,
+        ParticipantRepository $participantRepository,
+        LieuRepository $lieuRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
         $sortie = new Sortie();
-        $form = $this->createForm(SortieFormType::class);
+        $form = $this->createForm(SortieFormType::class, $sortie);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
+            $organisateur = $participantRepository
+                ->findOneBy(["mail" => $this->getUser()->getUserIdentifier()]);
+            $sortie->setOrganisateur($organisateur);
+            $sortie->setCampus($organisateur->getCampus());
+
+            # TODO : trouver qqch de plus beau pour fixer l'état
+            $sortie->setEtat($etatRepository->find(1));
+
+            $sortie->setLieu($lieuRepository->findOneBy(["id" => $_POST['lieu_id']]));
             $entityManager->persist($sortie);
             $entityManager->flush();
         }
@@ -67,8 +83,10 @@ class SortieController extends AbstractController
 
         if ($motifForm->isSubmitted() && $motifForm->isValid()){
             $sortie->setMotif($motifForm->get("motif")->getData());
-            $etat = $etatRepository->find(6);
-            $sortie->setEtat($etat);
+
+            # TODO : trouver qqch de plus beau pour fixer l'état
+            $sortie->setEtat($etatRepository->find(6));
+
             $entityManager->flush();
         }
 

@@ -14,7 +14,7 @@
     <div class="mb-3 row">
         <label for="ville">Ville</label>
         <div class="col-sm-10" name="ville[nom]">
-            <select class="form-select" id="ville">
+            <select class="form-select" id="ville" name="sortie_form_ville">
             {% for ville in villes %}
                 <option value="{{ ville.id }}">{{ ville.nom }}</option>
             {% endfor %}
@@ -25,7 +25,7 @@
     <div class="mb-3 row">
         <label for="lieu">Lieu</label>
         <div class="col-sm-10" name="lieu[nom]">
-            <select class="form-select" id="lieu"></select>
+            <select class="form-select" id="lieu" name="lieu_id"></select>
         </div>
     </div>
 
@@ -44,6 +44,6 @@
 {% endblock %}
 
 {% block title %}
-
+    Sortir.com - Ajout d'une sortie
 {% endblock %}
 

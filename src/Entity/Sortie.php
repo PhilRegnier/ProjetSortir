@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\EtatRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
