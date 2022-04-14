@@ -96,4 +96,10 @@ class SortieController extends AbstractController
             "sortie" => $sortie
         ]);
     }
+
+    #[Route('/modifier/{id}', name: '_modifier', requirements: ["id" => "\d+"])]
+    public function modifier()
+    {
+        
+    }
 }
