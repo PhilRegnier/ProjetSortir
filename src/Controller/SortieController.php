@@ -90,7 +90,6 @@ class SortieController extends AbstractController
             $entityManager->flush();
         }
 
-
         return $this->render('sortie/annuler.html.twig', [
             "motifForm" => $motifForm->createView(),
             "sortie" => $sortie
@@ -100,6 +99,6 @@ class SortieController extends AbstractController
     #[Route('/modifier/{id}', name: '_modifier', requirements: ["id" => "\d+"])]
     public function modifier()
     {
-        
+
     }
 }
