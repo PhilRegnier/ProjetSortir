@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} | Modifier sortie{% endblock %}
+
+{% block body %}
+    <h1 class="modif-sortie-title">Modifier une sortie</h1>
+    <div class="modif-sortie-form">
+        <div class="modif-sortie-gauche">
+            {% form_theme modifSortieForm 'bootstrap_5_layout.html.twig' %}
+            {{ form_start(modifSortieForm) }}
+            {{ form_row(modifSortieForm.nom, { label: 'Nom de la sortie' }) }}
+            {{ form_row(modifSortieForm.dateHeureDebut, { label: 'Date et heure de la sortie' }) }}
+            {{ form_row(modifSortieForm.dateLimiteInscription, { label: 'Date limite inscription' }) }}
+            {{ form_row(modifSortieForm.nbInscriptionsMax, { label: 'Nombre de places' }) }}
+            {{ form_row(modifSortieForm.duree, { label: 'Durée' }) }}
+            {{ form_row(modifSortieForm.infosSortie, { label: 'Description et infos' }) }}
+        </div>
+        <div class="modif-sortie-droite">
+            Campus : {{ app.user.campus.nom }}
+
+            <div class="mb-3 row">
+                <label for="ville">Ville</label>
+                <div class="col-sm-10" name="ville[nom]">
+                    <select class="form-select" id="ville" name="sortie_form_ville">
+                        {% for ville in villes %}
+                            <option value="{{ ville.id }}">{{ ville.nom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="lieu">Lieu</label>
+                <div class="col-sm-10" name="lieu[nom]">
+                    <select class="form-select" id="lieu" name="lieu_id"></select>
+                </div>
+            </div>
+
+            <p>Code postal : <span id="codePostal"></span></p>
+            <p>Rue : <span id="rue"></span></p>
+            <p>Latitude : <span id="latitude"></span></p>
+            <p>Longitude : <span id="longitude"></span></p>
+
+        </div>
+        {{ form_end(modifSortieForm) }}
+    </div>
+    <div class="buttons-bloc">
+        <button type="submit" class="btn-sortie btn-modif">Modifier</button>
+        <button type="reset" class="btn-sortie btn-modif">Annuler</button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('js/ajout_sortie.js') }}"></script>
+{% endblock %}
+
+
+
