@@ -48,8 +48,8 @@ class SortieRepository extends ServiceEntityRepository
     public function findWithFilter($filtre): array
     {
         $queryBuilder = $this->createQueryBuilder('s');
+        dump($filtre['campus']);
         if (!empty($filtre['campus'])) {
-            dump($filtre['campus']);
             $queryBuilder
                 ->andWhere('s.campus = :campus')
                 ->setParameter('campus', $filtre['campus']);
@@ -76,26 +76,34 @@ class SortieRepository extends ServiceEntityRepository
             dump($filtre['userIdentifier']);
             $queryBuilder
                 ->leftJoin('s.organisateur', 'p')
-                ->andWhere('p.pseudo LIKE :userIdentifier OR p.mail LIKE :userIdentifier')
-                ->setParameter('organisateur', '%'.$filtre['userIdentifier'].'%');
+                ->andWhere('p.pseudo LIKE :userId OR p.mail LIKE :userId')
+                ->setParameter('userId', '%'.$filtre['userIdentifier'].'%');
         }
         if (!empty($filtre['inscrit'])) {
             dump($filtre['inscrit']);
             $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $organisateur);
+                ->leftJoin('s.inscrits','i')
+                ->andWhere('i.pseudo LIKE :participant OR i.mail LIKE :participant')
+                ->setParameter('participant', $filtre['inscrit']);
         }
         if (!empty($filtre['pasInscrit'])) {
             dump($filtre['pasInscrit']);
             $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $filtre['pasInscrit']);
+                ->leftJoin('s.inscrits','i')
+                ->andWhere('i.pseudo NOT LIKE :participant AND i.mail NOT LIKE :participant')
+                ->setParameter('participant', $filtre['pasInscrit']);
         }
-        if (!empty($filtre['etat'])) {
-            dump($filtre['etat']);
+        if (!empty($filtre['sortiesPassees'])) {
+            dump($filtre['sortiesPassees']);
             $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $organisateur);
+                ->andWhere('s.etat = :etat')
+                ->setParameter('etat', $filtre['sortiesPassees']);
+        }
+        if (!empty($filtre['sortiesNonPassees'])) {
+            dump($filtre['sortiesNonPassees']);
+            $queryBuilder
+                ->andWhere('s.etat <> :etat')
+                ->setParameter('etat', $filtre['sortiesNonPassees']);
         }
         $queryBuilder
             ->orderBy('s.dateHeureDebut', 'ASC')
