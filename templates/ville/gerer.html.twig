@@ -2,9 +2,17 @@
 
 {% block body %}
 <h1>Gérer les villes</h1>
-    {% for ville in villes %}
-        <p>{{ ville.nom }} {{ ville.codePostal }} <a href="#">Modifier</a> <a href="{{ path('ville_suprimer', {'id': ville.id}) }}">Supprimier</a></p>
-    {% endfor %}
+{#    {% for ville in villes %}#}
+{#        <p><span id="ville">{{ ville.id }}</span>  {{ ville.nom }} <span id="codePostal"></span> <a href="#">Modifier</a> <a href="{{ path('ville_supprimer', {'id': ville.id}) }}">Supprimier</a></p>#}
+{#    {% endfor %}#}
+
+    <ul id="list-ville">
+
+    </ul>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('js/gerer_ville.js') }}"></script>
+
 {% endblock %}
 
 {% block title %}

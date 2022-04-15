@@ -67,7 +67,7 @@ class VilleController extends AbstractController
         return $this->render('ville/gerer.html.twig', compact("villes"));
     }
 
-    #[Route('/suprimer{id}', name: '_suprimer', requirements: ["id" => "\d+"])]
+    #[Route('/supprimer{id}', name: '_supprimer', requirements: ["id" => "\d+"])]
     #[IsGranted("ROLE_ADMIN")]
     public function supprimer(
         Ville $ville,
