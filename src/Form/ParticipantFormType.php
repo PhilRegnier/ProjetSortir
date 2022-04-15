@@ -69,7 +69,8 @@ class ParticipantFormType extends AbstractType
                     'label'             => "Ma photo",
                     'required'          => true,
                     'image_uri'         => false,
-                    'download_link'     => false
+                    'download_link'     => false,
+                    'allow_delete'      => false
                 ]
             )
         ;
