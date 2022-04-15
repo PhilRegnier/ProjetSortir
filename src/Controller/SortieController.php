@@ -2,18 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
 use App\Entity\Sortie;
-use App\Form\LieuFormType;
 use App\Form\SortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
-use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +33,7 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $form = $this->createForm(SortieFormType::class, $sortie);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $organisateur = $participantRepository
                 ->findOneBy(["mail" => $this->getUser()->getUserIdentifier()]);
             $sortie->setOrganisateur($organisateur);
