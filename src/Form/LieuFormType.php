@@ -24,12 +24,6 @@ class LieuFormType extends AbstractType
                     'class' => Ville::class,
                     'choice_label' => 'nom'
                 ])
-            ->add('codePostal',
-                EntityType::class,
-                [
-                    'class' => Ville::class,
-                    'choice_label' => 'codePostal'
-                ])
         ;
     }
 

@@ -10,28 +10,26 @@
     </div>
     <h1 class="filtrer-title">Filtrer les sorties</h1>
     <div class="bloc-filtres">
-        <div class="filtres-gauche">
         {% form_theme filtreForm 'bootstrap_5_layout.html.twig' %}
         {{ form_start(filtreForm) }}
-                {{ form_row(filtreForm.campus, { label: 'Campus' }) }}
-                {{ form_row(filtreForm.nomSortie) }}
+        <div class="filtres-gauche">
+            {{ form_row(filtreForm.campus, { label: 'Campus' }) }}
+            {{ form_row(filtreForm.nomSortie) }}
             <div class="plage-dates">
                 {{ form_row(filtreForm.dateSortieDebut) }}
                 {{ form_row(filtreForm.dateSortieFin) }}
             </div>
         </div>
         <div class="filtres-droite">
-                {{ form_row(filtreForm.organisateur, { label: "Sorties dont je suis l'organisateur/trice"}) }}
-                {{ form_row(filtreForm.inscrit, { label: "Sorties auxquelles je suis inscrit/e"}) }}
-                {{ form_row(filtreForm.pasInscrit, { label: "Sorties auxquelles je ne suis pas inscrit/e"}) }}
-                {{ form_row(filtreForm.sortiesPassees, { label: "Sorties passées"}) }}
-        {{ form_end(filtreForm) }}
+            {{ form_row(filtreForm.organisateur, { label: "Sorties dont je suis l'organisateur/trice"}) }}
+            {{ form_row(filtreForm.inscrit, { label: "Sorties auxquelles je suis inscrit/e"}) }}
+            {{ form_row(filtreForm.pasInscrit, { label: "Sorties auxquelles je ne suis pas inscrit/e"}) }}
+            {{ form_row(filtreForm.sortiesPassees, { label: "Sorties passées"}) }}
         </div>
         <div class="btn-chercher-sortie">
-            <a href="{{ path('main_connecte') }}">
-                <button class="btn-sortie" type="submit">Rechercher</button>
-            </a>
+            <button class="btn-sortie" type="submit">Rechercher</button>
         </div>
+        {{ form_end(filtreForm) }}
     </div>
     <div class="styled-table">
         <table>
@@ -58,7 +56,7 @@
                     </td>
                     <td>
                         {% if app.user.pseudo == sortie.organisateur.pseudo  %}
-                            <a href="#">Modifier</a>
+                            <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a>
                             <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
                             <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
                         {% else %}

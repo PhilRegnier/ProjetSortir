@@ -1,8 +1,7 @@
-let BASE_URL = 'http://127.0.0.1:8006/api';
 
-$(document).ready(updatePage);
+$(document).ready(updateSortie);
 
-document.getElementById('ville').addEventListener('change', updatePage);
+document.getElementById('ville').addEventListener('change', updateSortie);
 document.getElementById('lieu').addEventListener('change', updateLieu);
 
 function Lieu(id, nom, rue, latitude, longitude) {
@@ -21,7 +20,7 @@ function updateAffichageLieu(lieu) {
     $('#longitude').text(lieu.longitude);
 }
 
-function updatePage() {
+function updateSortie() {
 
     let villeId = document.getElementById('ville').value;
     document.getElementById('lieu').innerHTML = "";
