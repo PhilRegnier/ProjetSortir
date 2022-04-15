@@ -10,11 +10,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 #[UniqueEntity(fields: ['pseudo'], message: 'Ce pseudo est déjà utilisé.')]
 #[UniqueEntity(fields: ['mail'], message: 'Cette adresse email est déjà utilisée.')]
-class Participant implements UserInterface, PasswordAuthenticatedUserInterface
+/**
+ * @ORM\Entity
+ * @Vich\Uploadable
+ */
+class Participant implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -65,10 +71,20 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $image;
 
+    /**
+     * @Vich\UploadableField(mapping="avatar", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    #[ORM\Column(type: 'datetime')]
+    private $updatedAt;
+
     public function __construct()
     {
         $this->sortiesInscrites = new ArrayCollection();
         $this->sortiesOrganisees = new ArrayCollection();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -297,15 +313,69 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImage(): ?string
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(?string $image): self
+    public function serialize()
     {
-        $this->image = $image;
+        return serialize(array(
+            $this->id,
+            $this->roles,
+            $this->nom,
+            $this->prenom,
+            $this->telephone,
+            $this->mail,
+            $this->motPasse,
+            $this->administrateur,
+            $this->actif,
+            $this->campus,
+            $this->pseudo,
+            $this->image,
+            $this->updatedAt
+        ));
+    }
 
-        return $this;
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->roles,
+            $this->nom,
+            $this->prenom,
+            $this->telephone,
+            $this->mail,
+            $this->motPasse,
+            $this->administrateur,
+            $this->actif,
+            $this->campus,
+            $this->pseudo,
+            $this->image,
+            $this->updatedAt
+            ) = unserialize($serialized);
     }
 }

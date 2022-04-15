@@ -1,3 +1,42 @@
+/*CSS lié à la page login*/
+.login-title {
+    color: #0d6efd;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+.login-bloc {
+    margin: 0 auto;
+    width: 350px;
+    border: solid 1px #0d6efd;
+    border-radius: 15px;
+    padding: 30px;
+}
+.login-buttons {
+    display: flex;
+    margin: 0 auto;
+    text-align: center;
+}
+.remember-me {
+    padding-top: 30px;
+    margin: 0 auto;
+}
+.btn-login {
+    margin-right: 15px;
+    margin-top: 20px;
+    padding: 10px;
+    font-family: arial;
+    font-size: 1em;
+    color: #FFFFFF;
+    background-color: #548dd4;
+    border: none;
+}
+.btn-login:hover {
+    padding: 10px;
+    color: #ffffff;
+    background-color: #17365d;
+    border: 0px solid #FFFFFF;
+}
 header {
     display: flex;
     width: 1200px;
@@ -165,4 +204,35 @@ table {
     color: #ffffff;
     background-color: #17365d;
     border: 0px solid #FFFFFF;
+}
+/*CSS lié à l'affichage d'une sortie*/
+.detail-sortie-title {
+    text-align: center;
+    color: #0d6efd;
+    font-size: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.sortie-bloc {
+    display: flex;
+    width: 1100px;
+    margin: 0 auto;
+    justify-content: space-around;
+    font-size: 20px;
+    border: solid 1px #0d6efd;
+    border-radius: 15px;
+    padding: 30px;
+}
+.sortie-bloc-gauche {
+    display: flex;
+    width: 500px;
+    justify-content: space-around;
+}
+.sortie-bloc-droit {
+    display: flex;
+    width: 500px;
+    justify-content: space-around;
+}
+.label-sortie {
+    font-weight: bold;
 }

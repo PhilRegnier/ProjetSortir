@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ParticipantFormType extends AbstractType
 {
@@ -61,6 +62,14 @@ class ParticipantFormType extends AbstractType
                 [
                     'class' => Campus::class,
                     'choice_label' => 'nom'
+                ]
+            )
+            ->add('imageFile', VichImageType::class,
+                [
+                    'label'             => "Ma photo",
+                    'required'          => true,
+                    'image_uri'         => false,
+                    'download_link'     => false
                 ]
             )
         ;
