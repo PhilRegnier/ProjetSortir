@@ -92,10 +92,15 @@ class SortieController extends AbstractController
             return $this->redirectToRoute("main_connecte");
         }
 
-
         return $this->render('sortie/annuler.html.twig', [
             "motifForm" => $motifForm->createView(),
             "sortie" => $sortie
         ]);
+    }
+
+    #[Route('/modifier/{id}', name: '_modifier', requirements: ["id" => "\d+"])]
+    public function modifier()
+    {
+
     }
 }
