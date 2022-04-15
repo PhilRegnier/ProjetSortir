@@ -3,17 +3,18 @@
 {% block body %}
     <h1>Créer un lieu</h1>
     {{ form_start(lieuForm) }}
-    {{ form_row(lieuForm.ville, { label: "Ville : "}) }}
-    {{ form_row(lieuForm.codePostal, { label: "Code postal : "}) }}
-    {{ form_row(lieuForm.nom, { label: "Nom : "}) }}
-    {{ form_row(lieuForm.rue, { label: "rue : "}) }}
-    {{ form_row(lieuForm.latitude, { label: "Nom : "}) }}
-    {{ form_row(lieuForm.longitude, { label: "rue : "}) }}
-    {{ form_row(lieuForm.codePostal, { label: "Code postal : "}) }}
+    {{ form_row(lieuForm.ville, { label: "Ville : ", id: "ville" }) }}
+    <p>Code postal : <span id="codePostal"></span></p>
+    {{ form_row(lieuForm.nom, { label: "Nom* : "}) }}
+    {{ form_row(lieuForm.rue, { label: "Rue* : "}) }}
+    {{ form_row(lieuForm.latitude, { label: "Latitude : "}) }}
+    {{ form_row(lieuForm.longitude, { label: "Longitude : "}) }}
     <button type="submit" class="btn">Enregistrer</button>
     <button type="reset" class="btn">Annuler</button>
     {{ form_end(lieuForm) }}
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('js/ajout_lieu.js') }}"></script>
 
 {% endblock %}
 
