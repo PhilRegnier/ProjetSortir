@@ -5,54 +5,62 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="detail-sortie-title">{{ sortie.nom }}</h1>
-    <div class="sortie-bloc">
-        <div class="sortie-bloc-gauche">
-            <div class="label-sortie">
-                <p>Nom de la sortie : </p>
-                <p>Date et heure de la sortie : </p>
-                <p>Date limite d'inscription : </p>
-                <p>Nombre de places : </p>
-                <p>Durée : </p>
-                <p>Description et infos : </p>
+    <div class="detail-sortie-body">
+        <h1 class="detail-sortie-title">{{ sortie.nom }}</h1>
+        <div class="sortie-bloc">
+            <div class="sortie-bloc-gauche">
+                <div class="label-sortie">
+                    <p>Nom de la sortie : </p>
+                    <p>Date et heure de la sortie : </p>
+                    <p>Date limite d'inscription : </p>
+                    <p>Nombre de places : </p>
+                    <p>Durée : </p>
+                    <p>Description et infos : </p>
+                </div>
+                <div class="valeur-sortie">
+                    <p>{{ sortie.nom }}</p>
+                    <p>{{ sortie.dateHeureDebut | date("Y-m-d H:i") }}</p>
+                    <p>{{ sortie.dateLimiteInscription | date("Y-m-d") }}</p>
+                    <p>{{ sortie.nbInscriptionsMax }}</p>
+                    <p>{{ sortie.duree }} minutes</p>
+                    <p>{{ sortie.infosSortie }}</p>
+                </div>
             </div>
-            <div class="valeur-sortie">
-                <p>{{ sortie.nom }}</p>
-                <p>{{ sortie.dateHeureDebut | date("Y-m-d H:i") }}</p>
-                <p>{{ sortie.dateLimiteInscription | date("Y-m-d") }}</p>
-                <p>{{ sortie.nbInscriptionsMax }}</p>
-                <p>{{ sortie.duree }} minutes</p>
-                <p>{{ sortie.infosSortie }}</p>
+            <div class="sortie-bloc-droit">
+                <div class="label-sortie">
+                    <p>Campus : </p>
+                    <p>Lieu : </p>
+                    <p>Rue : </p>
+                    <p>Code Postal : </p>
+                    <p>latitude : </p>
+                    <p>longitude : </p>
+                </div>
+                <div class="valeur-sortie">
+                    <p>{{ sortie.campus.nom }}</p>
+                    <p>{{ sortie.lieu.nom }}</p>
+                    <p>{{ sortie.lieu.rue }}</p>
+                    <p>{{ sortie.lieu.ville.codePostal }}</p>
+                    <p>{{ sortie.lieu.latitude }}</p>
+                    <p>{{ sortie.lieu.longitude }}</p>
+                </div>
             </div>
         </div>
-        <div class="sortie-bloc-droit">
-            <div class="label-sortie">
-                <p>Campus : </p>
-                <p>Lieu : </p>
-                <p>Rue : </p>
-                <p>Code Postal : </p>
-                <p>latitude : </p>
-                <p>longitude : </p>
-            </div>
-            <div class="valeur-sortie">
-                <p>{{ sortie.campus.nom }}</p>
-                <p>{{ sortie.lieu.nom }}</p>
-                <p>{{ sortie.lieu.rue }}</p>
-                <p>{{ sortie.lieu.ville.codePostal }}</p>
-                <p>{{ sortie.lieu.latitude }}</p>
-                <p>{{ sortie.lieu.longitude }}</p>
-            </div>
+        <h1 class="participant-title">Liste des participants inscrits :</h1>
+        <div class="styled-table">
+            <table>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                </tr>
+                {% for inscrit in sortie.inscrits %}
+                <tr>
+                    <td>{{ inscrit.pseudo }}</td>
+                    <td>{{ inscrit.nom }}</td>
+                    <td>{{ inscrit.prenom }}</td>
+                </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
-        <div>
-            <p>Liste des participants inscrits :</p>
-            <p>{{ (sortie.nom) }}</p>
-            <ul>
-            {% for inscrit in sortie.inscrits %}
-                <li>
-                {{ inscrit.prenom }} {{ inscrit.nom }}
-                </li>
-            {% endfor %}
-            </ul>
-        </div>
 {% endblock %}

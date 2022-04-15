@@ -2,7 +2,7 @@
 {% block title %}{{ parent() }} | Profil{% endblock %}
 
 {% block body %}
-    <h1 class="profil-title">Profil de {{ app.user.pseudo }}</h1>
+    <h1 class="detail-sortie-title">Profil de {{ app.user.pseudo }}</h1>
     <div class="profil-bloc">
         <div class="profil-pic">
             <img class="avatar" src="{{ asset('../ressources/images/avatar/' ~ app.user.image) }}" alt="avatar">
@@ -18,12 +18,12 @@
             {{ form_row(participantForm.confirmation, { label: 'Confirmation' }) }}
             {{ form_row(participantForm.campus, { label: 'Campus' }) }}
             {{ form_row(participantForm.imageFile) }}
-            <button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
-            <button type="reset" class="btn btn-lg btn-primary">Annuler</button>
             {{ form_end(participantForm) }}
         </div>
     </div>
+    <div class="profil-buttons">
+        <button type="submit" class="btn-sortie">Enregistrer</button>
+        <button type="reset" class="btn-sortie">Annuler</button>
+    </div>
 {% endblock %}
-
-
 

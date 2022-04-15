@@ -1,42 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Créer une sortie</h1>
-    {{ form_start(sortieForm) }}
-    {{ form_row(sortieForm.nom, { label: "Nom :" }) }}
-    {{ form_row(sortieForm.dateHeureDebut, { label: "Date et heure de la sortie :" }) }}
-    {{ form_row(sortieForm.dateLimiteInscription, { label: "Date limite d'inscription :" }) }}
-    {{ form_row(sortieForm.nbInscriptionsMax, { label: "Nombre de places :" }) }}
-    {{ form_row(sortieForm.duree, { label: "Durée :" }) }}
-    {{ form_row(sortieForm.infosSortie, { label: "Description et infos :" }) }}
-    Campus : {{ app.user.campus.nom }}
+    <h1 class="creer-sortie-title">Créer une sortie</h1>
+    <div class="creer-sortie-form">
+        <div class="creer-sortie-droite">
+            {% form_theme sortieForm 'bootstrap_5_layout.html.twig' %}
+            {{ form_start(sortieForm) }}
+            {{ form_row(sortieForm.nom, { label: "Nom :" }) }}
+            {{ form_row(sortieForm.dateHeureDebut, { label: "Date et heure de la sortie :" }) }}
+            {{ form_row(sortieForm.dateLimiteInscription, { label: "Date limite d'inscription :" }) }}
+            {{ form_row(sortieForm.nbInscriptionsMax, { label: "Nombre de places :" }) }}
+            {{ form_row(sortieForm.duree, { label: "Durée :" }) }}
+            {{ form_row(sortieForm.infosSortie, { label: "Description et infos :" }) }}
+        </div>
+        <div class="creer-sortie-gauche">
+            Campus : {{ app.user.campus.nom }}
+            <div class="mb-3 row">
+                <label for="ville">Ville</label>
+                <div class="col-sm-10" name="ville[nom]">
+                    <select class="form-select" id="ville" name="sortie_form_ville">
+                        {% for ville in villes %}
+                            <option value="{{ ville.id }}">{{ ville.nom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
 
-    <div class="mb-3 row">
-        <label for="ville">Ville</label>
-        <div class="col-sm-10" name="ville[nom]">
-            <select class="form-select" id="ville" name="sortie_form_ville">
-            {% for ville in villes %}
-                <option value="{{ ville.id }}">{{ ville.nom }}</option>
-            {% endfor %}
-            </select>
+            <div class="mb-3 row">
+                <label for="lieu">Lieu</label>
+                <div class="col-sm-10" name="lieu[nom]">
+                    <select class="form-select" id="lieu" name="lieu_id"></select>
+                    <a class="btn btn-primary" href="{{ path('lieu_ajouter') }}" role="button">+</a>
+                </div>
+            </div>
+
+            <p>Code postal : <span id="codePostal"></span></p>
+            <p>Rue : <span id="rue"></span></p>
+            <p>Latitude : <span id="latitude"></span></p>
+            <p>Longitude : <span id="longitude"></span></p>
         </div>
     </div>
 
-    <div class="mb-3 row">
-        <label for="lieu">Lieu</label>
-        <div class="col-sm-10" name="lieu[nom]">
-            <select class="form-select" id="lieu" name="lieu_id"></select>
-            <a class="btn btn-primary" href="{{ path('lieu_ajouter') }}" role="button">+</a>
-        </div>
-    </div>
-
-    <p>Code postal : <span id="codePostal"></span></p>
-    <p>Rue : <span id="rue"></span></p>
-    <p>Latitude : <span id="latitude"></span></p>
-    <p>Longitude : <span id="longitude"></span></p>
-
-    <button type="submit" class="btn">Enregistrer</button>
-    <button type="reset" class="btn">Annuler</button>
+    <button type="submit" class="btn-sortie">Enregistrer</button>
+    <button type="reset" class="btn-sortie">Annuler</button>
     {{ form_end(sortieForm) }}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
