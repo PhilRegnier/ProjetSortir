@@ -32,7 +32,6 @@ class MainController extends AbstractController
         Request $request
     ): Response
     {
-        //on prépare le formulaire des filtres qui sera envoyé au twig
         $filtreForm = $this->createFormBuilder()
             ->add('campus',
                 EntityType::class,
@@ -72,6 +71,7 @@ class MainController extends AbstractController
                 $filtre['campus'] = $filtreForm->get('campus')->getData();
             }
             if (!empty ($filtreForm->get('nomSortie')->getData())) {
+                # TODO: tableau de mots (explode ou split ?)
                 $filtre['nomSortie'] = $filtreForm->get('nomSortie')->getData();
             }
             if (!empty ($filtreForm->get('dateSortieDebut')->getData())) {
@@ -81,7 +81,7 @@ class MainController extends AbstractController
                 $filtre['dateSortieFin'] = $filtreForm->get('dateSortieFin')->getData();
             }
             if (!empty ($filtreForm->get('organisateur')->getData())) {
-                $filtre['organisateur'] = $filtreForm->get('organisateur')->getData();
+                $filtre['organisateurIdentifier'] = $this->getUser()->getUserIdentifier();
             }
             if (!empty ($filtreForm->get('inscrit')->getData())) {
                 $filtre['inscrit'] = $filtreForm->get('inscrit')->getData();
@@ -101,7 +101,7 @@ class MainController extends AbstractController
             $filtre['campus'] = $user->getCampus();
             $filtre['etat'] = [1, 2, 3, 4, 5];
         }
-        $sortiesListe = $sortieRepository->findByWithFilter($filtre);
+        $sortiesListe = $sortieRepository->findWithFilter($filtre);
 
         return $this->render('main/index.html.twig',
             [
