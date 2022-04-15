@@ -45,48 +45,65 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByWithFilter($filtre): array
+    public function findWithFilter($filtre): array
     {
         $queryBuilder = $this->createQueryBuilder('s');
+        dump($filtre['campus']);
         if (!empty($filtre['campus'])) {
             $queryBuilder
                 ->andWhere('s.campus = :campus')
                 ->setParameter('campus', $filtre['campus']);
         }
         if (!empty($filtre['nomSortie'])) {
+            dump($filtre['nomSortie']);
             $queryBuilder
                 ->andWhere('s.nom LIKE :nomSortie')
                 ->setParameter('nomSortie', '%' . $filtre['nomSortie'] . '%');
         }
         if (!empty($filtre['dateSortieDebut'])) {
+            dump($filtre['dateSortieDebut']);
             $queryBuilder
                 ->andWhere('s.dateHeureDebut LIKE :dateSortieDebut')
                 ->setParameter('dateSortieDebut', $filtre['dateSortieDebut']);
         }
         if (!empty($filtre['$dateSortieFin'])) {
+            dump($filtre['$dateSortieFin']);
             $queryBuilder
                 ->andWhere('s.dateHeureDebut LIKE :dateSortieDebut')
                 ->setParameter('dateSortieDebut', $filtre['$dateSortieFin']);
         }
-        if (!empty($filtre['organisateur'])) {
+        if (!empty($filtre['userIdentifier'])) {
+            dump($filtre['userIdentifier']);
             $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $filtre['organisateur']);
+                ->leftJoin('s.organisateur', 'p')
+                ->andWhere('p.pseudo LIKE :userId OR p.mail LIKE :userId')
+                ->setParameter('userId', '%'.$filtre['userIdentifier'].'%');
         }
         if (!empty($filtre['inscrit'])) {
+            dump($filtre['inscrit']);
             $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $organisateur);
+                ->leftJoin('s.inscrits','i')
+                ->andWhere('i.pseudo LIKE :participant OR i.mail LIKE :participant')
+                ->setParameter('participant', $filtre['inscrit']);
         }
         if (!empty($filtre['pasInscrit'])) {
+            dump($filtre['pasInscrit']);
             $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $filtre['pasInscrit']);
+                ->leftJoin('s.inscrits','i')
+                ->andWhere('i.pseudo NOT LIKE :participant AND i.mail NOT LIKE :participant')
+                ->setParameter('participant', $filtre['pasInscrit']);
         }
-        if (!empty($filtre['etat'])) {
+        if (!empty($filtre['sortiesPassees'])) {
+            dump($filtre['sortiesPassees']);
             $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $organisateur);
+                ->andWhere('s.etat = :etat')
+                ->setParameter('etat', $filtre['sortiesPassees']);
+        }
+        if (!empty($filtre['sortiesNonPassees'])) {
+            dump($filtre['sortiesNonPassees']);
+            $queryBuilder
+                ->andWhere('s.etat <> :etat')
+                ->setParameter('etat', $filtre['sortiesNonPassees']);
         }
         $queryBuilder
             ->orderBy('s.dateHeureDebut', 'ASC')
