@@ -45,55 +45,55 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByWithFilter($filtre): array
-    {
-        $queryBuilder = $this->createQueryBuilder('s');
-        if (!empty($filtre['campus'])) {
-            $queryBuilder
-                ->andWhere('s.campus = :campus')
-                ->setParameter('campus', $filtre['campus']);
-        }
-        if (!empty($filtre['nomSortie'])) {
-            $queryBuilder
-                ->andWhere('s.nom LIKE :nomSortie')
-                ->setParameter('nomSortie', '%' . $filtre['nomSortie'] . '%');
-        }
-        if (!empty($filtre['dateSortieDebut'])) {
-            $queryBuilder
-                ->andWhere('s.dateHeureDebut LIKE :dateSortieDebut')
-                ->setParameter('dateSortieDebut', $filtre['dateSortieDebut']);
-        }
-        if (!empty($filtre['$dateSortieFin'])) {
-            $queryBuilder
-                ->andWhere('s.dateHeureDebut LIKE :dateSortieDebut')
-                ->setParameter('dateSortieDebut', $filtre['$dateSortieFin']);
-        }
-        if (!empty($filtre['organisateur'])) {
-            $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $filtre['organisateur']);
-        }
-        if (!empty($filtre['inscrit'])) {
-            $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $organisateur);
-        }
-        if (!empty($filtre['pasInscrit'])) {
-            $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $filtre['pasInscrit']);
-        }
-        if (!empty($filtre['etat'])) {
-            $queryBuilder
-                ->andWhere('s.organisateur LIKE :organisateur')
-                ->setParameter('organisateur', $organisateur);
-        }
-        $queryBuilder
-            ->orderBy('s.dateHeureDebut', 'ASC')
-            ->setMaxResults(100);
-
-            return $queryBuilder->getQuery()->getResult();
-        }
+//    public function findByWithFilter($filtre): array
+//    {
+//        $queryBuilder = $this->createQueryBuilder('s');
+//        if (!empty($filtre['campus'])) {
+//            $queryBuilder
+//                ->andWhere('s.campus = :campus')
+//                ->setParameter('campus', $filtre['campus']);
+//        }
+//        if (!empty($filtre['nomSortie'])) {
+//            $queryBuilder
+//                ->andWhere('s.nom LIKE :nomSortie')
+//                ->setParameter('nomSortie', '%' . $filtre['nomSortie'] . '%');
+//        }
+//        if (!empty($filtre['dateSortieDebut'])) {
+//            $queryBuilder
+//                ->andWhere('s.dateHeureDebut LIKE :dateSortieDebut')
+//                ->setParameter('dateSortieDebut', $filtre['dateSortieDebut']);
+//        }
+//        if (!empty($filtre['$dateSortieFin'])) {
+//            $queryBuilder
+//                ->andWhere('s.dateHeureDebut LIKE :dateSortieDebut')
+//                ->setParameter('dateSortieDebut', $filtre['$dateSortieFin']);
+//        }
+//        if (!empty($filtre['organisateur'])) {
+//            $queryBuilder
+//                ->andWhere('s.organisateur LIKE :organisateur')
+//                ->setParameter('organisateur', $filtre['organisateur']);
+//        }
+//        if (!empty($filtre['inscrit'])) {
+//            $queryBuilder
+//                ->andWhere('s.organisateur LIKE :organisateur')
+//                ->setParameter('organisateur', $organisateur);
+//        }
+//        if (!empty($filtre['pasInscrit'])) {
+//            $queryBuilder
+//                ->andWhere('s.organisateur LIKE :organisateur')
+//                ->setParameter('organisateur', $filtre['pasInscrit']);
+//        }
+//        if (!empty($filtre['etat'])) {
+//            $queryBuilder
+//                ->andWhere('s.organisateur LIKE :organisateur')
+//                ->setParameter('organisateur', $organisateur);
+//        }
+//        $queryBuilder
+//            ->orderBy('s.dateHeureDebut', 'ASC')
+//            ->setMaxResults(100);
+//
+//            return $queryBuilder->getQuery()->getResult();
+//        }
 
         // /**
         //  * @return Sortie[] Returns an array of Sortie objects

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Ville;
 use App\Repository\LieuRepository;
+use App\Repository\VilleRepository;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,9 +59,35 @@ class VilleController extends AbstractController
 
     #[Route('/gerer', name: '_gerer')]
     #[IsGranted("ROLE_ADMIN")]
-    public function gerer(): Response
+    public function gerer(
+        VilleRepository $villeRepository
+    ): Response
     {
+        $villes = $villeRepository->findAll();
+        return $this->render('ville/gerer.html.twig', compact("villes"));
+    }
 
-        return $this->render('ville/gerer.html.twig');
+    #[Route('/suprimer{id}', name: '_suprimer', requirements: ["id" => "\d+"])]
+    #[IsGranted("ROLE_ADMIN")]
+    public function supprimer(
+        Ville $ville,
+        VilleRepository $villeRepository
+    ): Response
+    {
+        $villeRepository->remove($ville);
+        $this->addFlash('success', 'La ville à été supprimé avec succès.');
+        return $this->redirectToRoute('ville_gerer');
+    }
+
+    #[Route('/suprimer{id}', name: '_suprimer', requirements: ["id" => "\d+"])]
+    #[IsGranted("ROLE_ADMIN")]
+    public function modifier(
+        Ville $ville,
+        VilleRepository $villeRepository
+    ): Response
+    {
+        $villeRepository->remove($ville);
+        $this->addFlash('success', 'La ville à été supprimé avec succès.');
+        return $this->redirectToRoute('ville_gerer');
     }
 }

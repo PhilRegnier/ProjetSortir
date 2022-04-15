@@ -101,7 +101,7 @@ class MainController extends AbstractController
             $filtre['campus'] = $user->getCampus();
             $filtre['etat'] = [1, 2, 3, 4, 5];
         }
-        $sortiesListe = $sortieRepository->findByWithFilter($filtre);
+        $sortiesListe = $sortieRepository->findAll();
 
         return $this->render('main/index.html.twig',
             [
