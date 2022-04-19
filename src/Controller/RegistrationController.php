@@ -19,6 +19,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new Participant();
+        $user->setImage('avatar.jpg');
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
