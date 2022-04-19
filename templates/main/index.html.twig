@@ -5,14 +5,19 @@
 {% block body %}
     {% set date = "now" | date('d/m/Y') %}
     <div class="mini-bloc-date">
-        <p>Date du jour : {{ date }}</p>
-        <p>Participant : {{ app.user.prenom }} {{ app.user.nom }}</p>
+        <div>
+            <img class="mini-avatar" src="{{ asset('../ressources/images/avatar/' ~ app.user.image) }}" alt="avatar">
+        </div>
+        <div class="mini-bloc-infos">
+            <p>Date du jour : {{ date }}</p>
+            <p>Participant : {{ app.user.prenom }} {{ app.user.nom }}</p>
+        </div>
     </div>
     <h1 class="filtrer-title">Filtrer les sorties</h1>
     <div class="bloc-filtres">
+        <div class="filtres-gauche">
         {% form_theme filtreForm 'bootstrap_5_layout.html.twig' %}
         {{ form_start(filtreForm) }}
-        <div class="filtres-gauche">
             {{ form_row(filtreForm.campus, { label: 'Campus' }) }}
             {{ form_row(filtreForm.nomSortie) }}
             <div class="plage-dates">
