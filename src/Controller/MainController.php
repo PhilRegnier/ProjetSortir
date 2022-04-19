@@ -6,7 +6,7 @@ use App\Entity\Campus;
 use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
-use Doctrine\ORM\EntityManagerInterface;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -91,6 +91,9 @@ class MainController extends AbstractController
         $filtreForm->handleRequest($request);
         $etatPasse = $etatRepository->findOneBy(['libelle'=> 'Passée']);
 
+        //On récupère la liste des sorties pour lesquelles l'utilisateur est inscrit
+        $sortiesInscrites = $participantRepository->findOneBy(["mail" => $this->getUser()->getUserIdentifier()])->getSortiesInscrites();
+
         dump('a'.$filtreForm->isSubmitted());
         if ($filtreForm->isSubmitted()) {
             dump('b'.$filtreForm->isValid());
@@ -136,7 +139,8 @@ class MainController extends AbstractController
         return $this->render('main/index.html.twig',
             [
                 'filtreForm' => $filtreForm->createView(),
-                'sortiesListe' => $sortiesListe
+                'sortiesListe' => $sortiesListe,
+                'sortiesInscrites' => $sortiesInscrites
             ]
         );
     }

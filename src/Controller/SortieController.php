@@ -119,4 +119,57 @@ class SortieController extends AbstractController
             ]
         );
     }
+
+    #[Route('/inscription/{id}', name: '_inscription', requirements: ["id" => "\d+"] )]
+    public function inscription(
+        Sortie $sortie,
+        EntityManagerInterface $entityManager,
+        Request $request,
+        ParticipantRepository $participantRepository
+    )
+
+    {
+        $user = $participantRepository
+            ->findOneBy(["mail" => $this->getUser()->getUserIdentifier()]);
+
+        //On vérifie que la date de clôture n'est pas dépassée mais également que le statut de la sortie est bien "Ouverte"
+        if ($sortie->getDateLimiteInscription()->format('Y-m-d') >= date("Y-m-d") && $sortie->getEtat()->getId() == 2) {
+
+            $sortie->addInscrit($user);
+            $entityManager->flush();
+            $this->addFlash('success', 'Vous êtes correctement inscrit à cette sortie');
+            return $this->redirectToRoute('main_connecte');
+
+        } else {
+            $this->addFlash('danger', "Vous ne pouvez pas vous inscrire à cette sortie");
+            return $this->redirectToRoute('main_connecte');
+        }
+    }
+
+    #[Route('/desinscription/{id}', name: '_desinscription', requirements: ["id" => "\d+"] )]
+    public function desinscription(
+        Sortie $sortie,
+        EntityManagerInterface $entityManager,
+        Request $request,
+        ParticipantRepository $participantRepository
+    )
+
+    {
+        //Il est possible de se désinscrire seulement si la sortie n'a pas débuté
+        if ($sortie->getDateHeureDebut()->format('Y-m-d') >= date("Y-m-d")) {
+            $user = $participantRepository
+                ->findOneBy(["mail" => $this->getUser()->getUserIdentifier()]);
+
+            $sortie->removeInscrit($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Vous avez été correctement désinscrit');
+        } else {
+            $this->addFlash('danger', 'Vous ne pouvez pas vous désinscrire');
+        }
+
+
+        return $this->redirectToRoute('main_connecte');
+
+    }
 }

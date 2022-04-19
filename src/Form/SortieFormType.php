@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Sortie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,10 +17,7 @@ class SortieFormType extends AbstractType
         $builder
             ->add('nom')
             ->add('dateHeureDebut',
-                DateType::class,
-                [
-                    'widget' => 'single_text'
-                ]
+                DateTimeType::class,
             )
             ->add('duree')
             ->add('dateLimiteInscription',
