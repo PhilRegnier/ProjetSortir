@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Form\LieuFormType;
 use App\Form\SortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
@@ -31,6 +33,7 @@ class SortieController extends AbstractController
     ): Response
     {
         $sortie = new Sortie();
+//        $sortie->setDateHeureDebut('2008-08-03 14:52:10');
         $form = $this->createForm(SortieFormType::class, $sortie);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -45,13 +48,25 @@ class SortieController extends AbstractController
             $sortie->setLieu($lieuRepository->findOneBy(["id" => $_POST['lieu_id']]));
             $entityManager->persist($sortie);
             $entityManager->flush();
+            $this->addFlash('success', 'La sortie à été créée avec succès');
+            return $this->redirectToRoute('main_connecte');
+        }
+
+        //On envoie également le formulaire du lieu qui sera affiché ou non selon le choix de l'utilisateur
+        $lieu = new Lieu();
+        $lieuForm = $this->createForm(LieuFormType::class, $lieu);
+        $lieuForm->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($lieu);
+            $entityManager->flush();
         }
 
         $villes = $villeRepository->findAll();
 
         return $this->render('sortie/ajouter.html.twig',[
             "sortieForm" => $form->createView(),
-            "villes"  => $villes
+            "villes"  => $villes,
+            "lieuForm" => $lieuForm->createView()
         ]);
     }
 
