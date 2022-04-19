@@ -3,6 +3,8 @@ $(document).ready(updateSortie);
 
 document.getElementById('ville').addEventListener('change', updateSortie);
 document.getElementById('lieu').addEventListener('change', updateLieu);
+document.getElementById('rue').addEventListener('keyup', updateLieuRue);
+document.getElementById('rue').addEventListener('change', updateLieuGeo);
 
 function Lieu(id, nom, rue, latitude, longitude) {
     this.id = id;
@@ -66,4 +68,43 @@ function updateLieu() {
             updateAffichageLieu(lieu);
         }
     }
+}
+
+function updateLieuRue() {
+
+    let recherche = document.getElementById('rue').value;
+
+    $.ajax(
+        {
+            url: 'https://api-adresse.data.gouv.fr/search/?q=' + recherche + '&postcode=' + codePostal + '&autocomplete=1&limit=15',
+            method: 'GET'
+        }
+    )
+        .done(
+            (adresses) => {
+                $('#rue').text(adresse.name);
+            }
+        )
+        .fail()
+        .always();
+}
+
+function updateLieuGeo() {
+
+    let recherche = document.getElementById('rue').value;
+
+    $.ajax(
+        {
+            url: 'https://api-adresse.data.gouv.fr/search/?q=recherche&postcode=' + codePostal + '&autocomplete=1',
+            method: 'GET'
+        }
+    )
+        .done(
+            (adresse) => {
+                $('#latitude').text(adresse.y);
+                $('#longitude').text(adresse.x);
+            }
+        )
+        .fail()
+        .always();
 }
