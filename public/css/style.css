@@ -1,3 +1,42 @@
+/*CSS lié à la page login*/
+.login-title {
+    color: #0d6efd;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+.login-bloc {
+    margin: 0 auto;
+    width: 350px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px lightgrey;
+    padding: 30px;
+}
+.login-buttons {
+    display: flex;
+    margin: 0 auto;
+    text-align: center;
+}
+.remember-me {
+    padding-top: 30px;
+    margin: 0 auto;
+}
+.btn-login {
+    margin-right: 15px;
+    margin-top: 20px;
+    padding: 10px;
+    font-family: arial;
+    font-size: 1em;
+    color: #FFFFFF;
+    background-color: #548dd4;
+    border: none;
+}
+.btn-login:hover {
+    padding: 10px;
+    color: #ffffff;
+    background-color: #17365d;
+    border: 0px solid #FFFFFF;
+}
 header {
     display: flex;
     width: 1200px;
@@ -47,10 +86,13 @@ footer {
 }
 /*CSS lié au profil du participant*/
 .profil-bloc {
-    margin-bottom: 50px;
-    margin-top: 50px;
+    width: 1100px;
+    margin: auto;
     display: flex;
     justify-content: space-around;
+    border-radius: 15px;
+    border: solid 1px #0d6efd;
+    padding: 50px;
 }
 .profil-title {
     margin-top: 50px;
@@ -59,18 +101,18 @@ footer {
     font-size: 35px;
 }
 .profil-pic {
-    border: solid 2px slategrey;
     width: 200px;
     height: 200px;
 }
 .avatar {
     width: 196px;
     height: 196px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px lightgrey;
 }
 .participant-form {
     /*border: solid 1px black;*/
-    width: 500px;
-    height: 600px;
+    width: 700px;
 }
 .flash {
     text-align: center;
@@ -112,11 +154,26 @@ table {
     width: 1100px;
 }
 .mini-bloc-date {
+    display: flex;
     padding: 10px;
-    margin-left: 900px;
+    margin-left: 790px;
     margin-top: 30px;
+    margin-right: 60px;
     /*border: solid 1px black;*/
     font-weight: bold;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px lightgrey;
+}
+.mini-avatar {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+    border: solid 1px grey;
+    border-radius: 10px;
+}
+.mini-bloc-infos {
+    margin: 0 auto;
+    padding-top: 5px;
 }
 .styled-table {
     border-collapse: collapse;
@@ -165,4 +222,84 @@ table {
     color: #ffffff;
     background-color: #17365d;
     border: 0px solid #FFFFFF;
+}
+/*CSS lié à l'affichage d'une sortie*/
+.detail-sortie-body {
+    width: 1100px;
+    margin: auto;
+}
+.detail-sortie-title {
+    text-align: center;
+    color: #0d6efd;
+    font-size: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.participant-title {
+    color: #0d6efd;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.sortie-bloc {
+    display: flex;
+    width: 1100px;
+    margin: 0 auto;
+    justify-content: space-around;
+    font-size: 20px;
+    border: solid 1px #0d6efd;
+    border-radius: 15px;
+    padding: 30px;
+}
+.sortie-bloc-gauche {
+    display: flex;
+    width: 500px;
+    justify-content: space-around;
+}
+.sortie-bloc-droit {
+    display: flex;
+    width: 500px;
+    justify-content: space-around;
+}
+.label-sortie {
+    font-weight: bold;
+}
+/*CSS lié à la modification de sortie*/
+.modif-sortie-form {
+    display: flex;
+    width: 1100px;
+    margin: 0 auto;
+    justify-content: space-around;
+    font-size: 20px;
+    border: solid 1px #0d6efd;
+    border-radius: 15px;
+    padding: 30px;
+}
+.buttons-bloc {
+    margin: 0 auto;
+}
+.modif-sortie-title {
+    text-align: center;
+    color: #0d6efd;
+    font-size: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+/*CSS lié à la création d'une sortie*/
+.creer-sortie-title {
+    text-align: center;
+    color: #0d6efd;
+    font-size: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.creer-sortie-form {
+    display: flex;
+    width: 1100px;
+    margin: 0 auto;
+    justify-content: space-around;
+    font-size: 20px;
+    border: solid 1px #0d6efd;
+    border-radius: 15px;
+    padding: 30px;
 }

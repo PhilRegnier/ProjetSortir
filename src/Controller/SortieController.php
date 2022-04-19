@@ -84,6 +84,8 @@ class SortieController extends AbstractController
             $sortie->setEtat($etatRepository->find(6));
 
             $entityManager->flush();
+            $this->addFlash('success', 'La sortie à été annulée avec succès.');
+            return $this->redirectToRoute("main_connecte");
         }
 
         return $this->render('sortie/annuler.html.twig', [
@@ -93,8 +95,28 @@ class SortieController extends AbstractController
     }
 
     #[Route('/modifier/{id}', name: '_modifier', requirements: ["id" => "\d+"])]
-    public function modifier()
-    {
+    public function modifier(
+        Sortie $sortie,
+        Request $request,
+        VilleRepository $villeRepository,
+        EntityManagerInterface $entityManager
+    )
 
+    {
+        $modifSortieForm = $this->createForm(SortieFormType::class, $sortie);
+        $modifSortieForm->handleRequest($request);
+        if ($modifSortieForm->isSubmitted() && $modifSortieForm->isValid()){
+
+            $entityManager->flush();
+        }
+
+        $villes = $villeRepository->findAll();
+
+        return $this->render('sortie/modifier.html.twig', [
+                "modifSortieForm" => $modifSortieForm->createView(),
+                "sortie" => $sortie,
+                "villes"  => $villes
+            ]
+        );
     }
 }
