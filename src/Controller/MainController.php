@@ -99,11 +99,9 @@ class MainController extends AbstractController
         if ($filtreForm->isSubmitted() && $filtreForm->isValid())
         {
             if (!empty ($filtreForm->get('campus')->getData())) {
-                dump("campus !");
                 $filtre['campus'] = $filtreForm->get('campus')->getData();
             }
             if (!empty ($filtreForm->get('nomSortie')->getData())) {
-                # TODO: tableau de mots (explode ou split ?)
                 $filtre['nomSortie'] = $filtreForm->get('nomSortie')->getData();
             }
             if (!empty ($filtreForm->get('dateSortieDebut')->getData())) {
