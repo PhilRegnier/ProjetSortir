@@ -47,11 +47,9 @@ class SortieController extends AbstractController
             $entityManager->flush();
         }
 
-        $villes = $villeRepository->findAll();
-
         return $this->render('sortie/ajouter.html.twig',[
             "sortieForm" => $form->createView(),
-            "villes"  => $villes
+            "villes"  => $villeRepository->findAll()
         ]);
     }
 
@@ -99,14 +97,22 @@ class SortieController extends AbstractController
         Sortie $sortie,
         Request $request,
         VilleRepository $villeRepository,
+        EtatRepository $etatRepository,
         EntityManagerInterface $entityManager
-    )
+    ): Response
 
     {
         $modifSortieForm = $this->createForm(SortieFormType::class, $sortie);
         $modifSortieForm->handleRequest($request);
         if ($modifSortieForm->isSubmitted() && $modifSortieForm->isValid()){
 
+            // TODO : contrôles métier éventuels (identique à ceux de la création d'une sortie
+
+            $this->addFlash('success', 'La sortie a été modifiée.');
+
+            if ($_POST['publier']) {
+                $sortie->setEtat($etatRepository->find(2));
+            }
             $entityManager->flush();
         }
 
@@ -120,37 +126,49 @@ class SortieController extends AbstractController
         );
     }
 
+    #[Route('/publier/{id}', name: '_publier', requirements: ["id" => "\d+"] )]
+    public function publier(
+        Sortie $sortie,
+        EtatRepository $etatRepository,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $sortie->setEtat($etatRepository->find(2));
+        $entityManager->flush();
+        $this->addFlash('success', 'La sortie a été publiée.');
+        return $this->redirectToRoute('main_connecte');
+    }
+
+
     #[Route('/inscription/{id}', name: '_inscription', requirements: ["id" => "\d+"] )]
     public function inscription(
         Sortie $sortie,
         EntityManagerInterface $entityManager,
-        Request $request,
         ParticipantRepository $participantRepository
     )
-
     {
         $user = $participantRepository
             ->findOneBy(["mail" => $this->getUser()->getUserIdentifier()]);
 
         //On vérifie que la date de clôture n'est pas dépassée mais également que le statut de la sortie est bien "Ouverte"
-        if ($sortie->getDateLimiteInscription()->format('Y-m-d') >= date("Y-m-d") && $sortie->getEtat()->getId() == 2) {
+        if (
+            $sortie->getDateLimiteInscription()->format('Y-m-d') >= date("Y-m-d") &&
+            $sortie->getEtat()->getId() == 2) {
 
             $sortie->addInscrit($user);
             $entityManager->flush();
             $this->addFlash('success', 'Vous êtes correctement inscrit à cette sortie');
-            return $this->redirectToRoute('main_connecte');
 
         } else {
             $this->addFlash('danger', "Vous ne pouvez pas vous inscrire à cette sortie");
-            return $this->redirectToRoute('main_connecte');
         }
+        return $this->redirectToRoute('main_connecte');
     }
 
     #[Route('/desinscription/{id}', name: '_desinscription', requirements: ["id" => "\d+"] )]
     public function desinscription(
         Sortie $sortie,
         EntityManagerInterface $entityManager,
-        Request $request,
         ParticipantRepository $participantRepository
     )
 
