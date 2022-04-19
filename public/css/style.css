@@ -303,3 +303,50 @@ table {
     border-radius: 15px;
     padding: 30px;
 }
+/*CSS lié au popup d'ajout du lieu*/
+#modal{
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+}
+#modal.open{
+    display: block;
+}
+#modal .mask{
+    background: black;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+#modal .container{
+    position: absolute;
+    background: white;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 800px;
+    height: auto;
+    min-height: 50px;
+    padding: 30px;
+    border-radius: 15px;
+}
+#modal .container .message{
+    padding: 5% 15% 5% 5%;
+}
+#modal .container a.close{
+    position: absolute;
+    right: 5%;
+    top:5%;
+    color: #444;
+    font-size: 30px;
+}
+#modal .container a.close:hover{
+    color: red;
+}
