@@ -18,7 +18,7 @@
         <div class="filtres-gauche">
         {% form_theme filtreForm 'bootstrap_5_layout.html.twig' %}
         {{ form_start(filtreForm) }}
-            {{ form_row(filtreForm.campus, { label: 'Campus' }) }}
+            {{ form_row(filtreForm.campus) }}
             {{ form_row(filtreForm.nomSortie) }}
             <div class="plage-dates">
                 {{ form_row(filtreForm.dateSortieDebut) }}

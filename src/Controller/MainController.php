@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
@@ -31,14 +32,25 @@ class MainController extends AbstractController
         SortieRepository $sortieRepository,
         ParticipantRepository $participantRepository,
         EtatRepository $etatRepository,
+        CampusRepository $campusRepository,
         Request $request
     ): Response
     {
+        $user = $participantRepository
+            ->findOneBy(["mail" => $this->getUser()->getUserIdentifier()]);
+
+        $campus[0] = $user->getCampus();
+        $others = $campusRepository->findAllOthers($user->getCampus());
+        foreach ($others as $other) {
+            $campus[] = $other;
+        }
+
         $filtreForm = $this->createFormBuilder()
             ->add('campus',
                 EntityType::class,
                 [
                     'class' => Campus::class,
+                    'choices' => $campus,
                     'choice_label' => 'nom'
                 ]
             )
@@ -125,9 +137,6 @@ class MainController extends AbstractController
         }
         else
         {
-            $user = $participantRepository
-                ->findOneBy(["mail" => $this->getUser()->getUserIdentifier()]);
-
             $filtre['campus'] = $user->getCampus();
             $filtre['sortiesNonPassees'] = $etatPasse;
         }

@@ -2,13 +2,13 @@
 
 {% block body %}
     <h1>Créer un lieu</h1>
-    {{ form_start(lieuForm) }}
+    {{ form_start(lieuForm, { autocomplete: 'off' }) }}
     {{ form_row(lieuForm.ville, { label: "Ville : ", id: "ville" }) }}
     <p>Code postal : <span id="codePostal"></span></p>
     {{ form_row(lieuForm.nom, { label: "Nom* : "}) }}
-    {{ form_row(lieuForm.rue, { label: "Rue* : "}) }}
-    {{ form_row(lieuForm.latitude, { label: "Latitude : "}) }}
-    {{ form_row(lieuForm.longitude, { label: "Longitude : "}) }}
+    {{ form_row(lieuForm.rue, { label: "Rue* : ", id: "rue", name: "rue", placeholder: "Rue" }) }}
+    {{ form_row(lieuForm.latitude, { label: "Latitude : ", id: "latitude" }) }}
+    {{ form_row(lieuForm.longitude, { label: "Longitude : ", id: "longitude" }) }}
     <button type="submit" class="btn">Enregistrer</button>
     <button type="reset" class="btn">Annuler</button>
     {{ form_end(lieuForm) }}
