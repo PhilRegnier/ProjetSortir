@@ -21,7 +21,7 @@
                     <p>{{ sortie.nom }}</p>
                     <p>{{ sortie.dateHeureDebut | date("Y-m-d H:i") }}</p>
                     <p>{{ sortie.dateLimiteInscription | date("Y-m-d") }}</p>
-                    <p>{{ sortie.nbInscriptionsMax }}</p>
+                    <p>{{ sortie.getInscrits().count()}} / {{ sortie.nbInscriptionsMax }}</p>
                     <p>{{ sortie.duree }} minutes</p>
                     <p>{{ sortie.infosSortie }}</p>
                 </div>

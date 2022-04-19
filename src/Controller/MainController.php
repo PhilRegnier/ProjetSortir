@@ -39,11 +39,7 @@ class MainController extends AbstractController
         $user = $participantRepository
             ->findOneBy(["mail" => $this->getUser()->getUserIdentifier()]);
 
-        $campus[0] = $user->getCampus();
-        $others = $campusRepository->findAllOthers($user->getCampus());
-        foreach ($others as $other) {
-            $campus[] = $other;
-        }
+        $campus = $campusRepository->findAllSorted($user->getCampus());
 
         $filtreForm = $this->createFormBuilder()
             ->add('campus',
