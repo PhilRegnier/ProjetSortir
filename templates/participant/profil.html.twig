@@ -18,12 +18,12 @@
             {{ form_row(participantForm.confirmation, { label: 'Confirmation' }) }}
             {{ form_row(participantForm.campus, { label: 'Campus' }) }}
             {{ form_row(participantForm.imageFile) }}
+            <div class="profil-buttons">
+                <button type="submit" class="btn-sortie">Enregistrer</button>
+                <button type="reset" class="btn-sortie">Annuler</button>
+            </div>
             {{ form_end(participantForm) }}
         </div>
-    </div>
-    <div class="profil-buttons">
-        <button type="submit" class="btn-sortie">Enregistrer</button>
-        <button type="reset" class="btn-sortie">Annuler</button>
     </div>
 {% endblock %}
 
