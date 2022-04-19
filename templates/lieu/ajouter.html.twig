@@ -2,7 +2,7 @@
 
 {% block body %}
     <h1>Créer un lieu</h1>
-    {{ form_start(lieuForm, { 'attr' => ['autocomplete' => 'off'] }) }}
+    {{ form_start(lieuForm, { autocomplete: 'off' }) }}
     {{ form_row(lieuForm.ville, { label: "Ville : ", id: "ville" }) }}
     <p>Code postal : <span id="codePostal"></span></p>
     {{ form_row(lieuForm.nom, { label: "Nom* : "}) }}

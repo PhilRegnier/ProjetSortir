@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Campus;
+use App\Entity\Participant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -45,6 +46,19 @@ class CampusRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Campus[] Returns an array of Campus objects
+     */
+    public function findAllOthers(Campus $campus): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c <> :val')
+            ->setParameter('val', $campus)
+            ->orderBy('c.nom', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     // /**
     //  * @return Campus[] Returns an array of Campus objects
     //  */
@@ -61,7 +75,6 @@ class CampusRepository extends ServiceEntityRepository
         ;
     }
     */
-
     /*
     public function findOneBySomeField($value): ?Campus
     {
