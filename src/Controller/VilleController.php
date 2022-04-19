@@ -4,7 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Ville;
 use App\Repository\LieuRepository;
+use App\Repository\VilleRepository;
+use Doctrine\ORM\EntityManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -51,5 +55,39 @@ class VilleController extends AbstractController
             $serializer->serialize($ville, 'json')
             //$serializer->normalize($lieux, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['']])
         ];
+    }
+
+    #[Route('/gerer', name: '_gerer')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function gerer(
+        VilleRepository $villeRepository
+    ): Response
+    {
+        $villes = $villeRepository->findAll();
+        return $this->render('ville/gerer.html.twig', compact("villes"));
+    }
+
+    #[Route('/supprimer{id}', name: '_supprimer', requirements: ["id" => "\d+"])]
+    #[IsGranted("ROLE_ADMIN")]
+    public function supprimer(
+        Ville $ville,
+        VilleRepository $villeRepository
+    ): Response
+    {
+        $villeRepository->remove($ville);
+        $this->addFlash('success', 'La ville à été supprimé avec succès.');
+        return $this->redirectToRoute('ville_gerer');
+    }
+
+    #[Route('/suprimer{id}', name: '_suprimer', requirements: ["id" => "\d+"])]
+    #[IsGranted("ROLE_ADMIN")]
+    public function modifier(
+        Ville $ville,
+        VilleRepository $villeRepository
+    ): Response
+    {
+        $villeRepository->remove($ville);
+        $this->addFlash('success', 'La ville à été supprimé avec succès.');
+        return $this->redirectToRoute('ville_gerer');
     }
 }

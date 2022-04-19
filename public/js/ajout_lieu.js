@@ -1,5 +1,5 @@
 
-$(document).ready(updateLieu());
+$(document).ready(updateLieu);
 
 document.getElementById('ville').addEventListener('change', updateLieu);
 
