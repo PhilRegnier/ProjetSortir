@@ -44,6 +44,8 @@
     </div>
     <div class="buttons-bloc">
         <button type="submit" class="btn-sortie btn-modif">Modifier</button>
+        <button type="submit" class="btn-sortie btn-modif" name="publier" value="true">Publier</button>
+        <a class="btn btn-primary" href="{{ path('sortie_annuler', {'id': sortie.id}) }}" role="button">Supprimer</a>
         <button type="reset" class="btn-sortie btn-modif">Annuler</button>
         {{ form_end(modifSortieForm) }}
     </div>
