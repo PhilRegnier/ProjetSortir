@@ -10,26 +10,26 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['ville']]
+    normalizationContext: ['groups' => ['getVille']]
 )]
 #[ORM\Entity(repositoryClass: VilleRepository::class)]
 class Ville
 {
-    #[Groups(['lieu', 'ville'])]
+    #[Groups(['getLieu', 'getVille'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[Groups(['lieu', 'ville'])]
+    #[Groups(['getLieu', 'getVille', 'postLieu'])]
     #[ORM\Column(type: 'string', length: 60)]
     private $nom;
 
-    #[Groups(['lieu', 'ville'])]
+    #[Groups(['getLieu', 'getVille', 'postLieu'])]
     #[ORM\Column(type: 'string', length: 5)]
     private $codePostal;
 
-    #[Groups('ville')]
+    #[Groups('getVille')]
     #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Lieu::class, orphanRemoval: true)]
     private $lieux;
 

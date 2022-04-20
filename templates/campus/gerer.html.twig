@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="detail-sortie-title">Gérer les campus</h1>
+    <h3>Filtrer les campus</h3>
+    {{ form_start(searchForm) }}
+    {{ form_widget(searchForm) }}
+    <button>Rechercher</button>
+    {{ form_end(searchForm) }}
+    <div class="styled-table">
+        <table>
+            <tr>
+                <th>Campus</th>
+                <th>Actions</th>
+            </tr>
+            {% for campus in campuses %}
+                <tr>
+                    <td>{{ campus.nom }}</td>
+                    <td>
+                        <a href="{{ path('campus_modifier', {'id': campus.id}) }}">Modifier</a>
+                        <a href="{{ path('campus_supprimer', {'id': campus.id}) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                {{ form_start(campusForm) }}
+                <td>{{ form_row(campusForm.nom) }}</td>
+                <td><button>Valider</button></td>
+                {{ form_end(campusForm) }}
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+
+{% block title %}
+{% endblock %}
+

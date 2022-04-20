@@ -34,27 +34,24 @@
                 <label for="lieu">Lieu</label>
                 <div class="col-sm-10" name="lieu[nom]">
                     <select class="form-select" id="lieu" name="lieu_id"></select>
-                    <a class="btn btn-primary" onclick="function open_mod(){var modal = document.getElementById('modal'); modal.className += 'open';} open_mod(); return false;">+</a>
+                    <a class="btn btn-primary" href="#" onclick="open_mod()">+</a>
                 </div>
                 <div id="modal">
                     <div class="mask"></div>
                     <div class="container auto">
                         <div class="message"></div>
                         <h1 class="modif-sortie-title">Créer un lieu</h1>
-                        {{ form_start(lieuForm, { autocomplete: 'off' }) }}
-                        {{ form_row(lieuForm.ville, { label: "Ville : ", id: "ville" }) }}
-                        <p>Code postal : <span id="codePostal"></span></p>
-                        {{ form_row(lieuForm.nom, { label: "Nom* : "}) }}
-                        {{ form_row(lieuForm.rue, { label: "Rue* : ", id: "rue", name: "rue", placeholder: "Rue" }) }}
-                        {{ form_row(lieuForm.latitude, { label: "Latitude : ", id: "latitude" }) }}
-                        {{ form_row(lieuForm.longitude, { label: "Longitude : ", id: "longitude" }) }}
-                        <button type="submit" class="btn">Enregistrer</button>
-                        <button type="reset" class="btn">Annuler</button>
-                        {{ form_end(lieuForm) }}
-
-                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-                        <script src="{{ asset('js/ajout_lieu.js') }}"></script>
-                        <a href="" onclick="function close_mod(){var modal = document.getElementById('modal'); modal.className += 'close';} close_mod(); return false;" class="close">&times;</a>
+                        <label for="lieunom">Nom*</label>
+                        <input type="text" id="lieunom" name="lieunom" required>
+                        <label for="lieurue">Rue*</label>
+                        <input type="text" id="lieurue" name="lieurue" required>
+                        <label for="lieulatitude">Latitude</label>
+                        <input type="text" id="lieulatitude" name="lieulatitude" value="">
+                        <label for="lieulongitude">Longitude</label>
+                        <input type="text" id="lieulongitude" name="lieulongitude" value="">
+                        <a class="btn btn-primary" href="#" onclick="valideLieu(); close_mod()">Enregistrer</a>
+                        <button type="reset" class="btn btn-primary">Effacer</button>
+                        <a href="#" onclick="close_mod()" class="close">&times;</a>
                     </div>
                 </div>
             </div>
@@ -66,21 +63,10 @@
         </div>
     </div>
 
-
     <button type="submit" class="btn-sortie">Enregistrer</button>
-
     <button type="reset" class="btn-sortie">Annuler</button>
     {{ form_end(sortieForm) }}
 
-    <script>
-        function ajouterLieu() {
-            if (document.getElementById("panel-lieu").style.display === "block") {
-                document.getElementById("panel-lieu").style.display = "none";
-            } else {
-                document.getElementById("panel-lieu").style.display = "block"
-            }
-        }
-    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/ajout_sortie.js') }}"></script>
 

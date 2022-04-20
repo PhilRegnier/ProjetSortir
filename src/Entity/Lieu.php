@@ -8,42 +8,52 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['lieu']]
+    collectionOperations: [
+        'get' => ['path' => '/lieux'],
+        'post' => ['path' => '/lieux']
+    ],
+    itemOperations: [
+        'get' => [
+            'path' => '/lieux/{id}',
+            'requirements' => ['id' => '\d+']
+            ]
+    ],
+    denormalizationContext: ['groups' => ['postLieu']],
+    normalizationContext: ['groups' => ['getLieu']]
 )]
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
 class Lieu
 {
-    #[Groups(['lieu', 'ville'])]
+    #[Groups(['getLieu', 'getVille'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[Groups(['lieu', 'ville'])]
+    #[Groups(['getLieu', 'getVille', 'postLieu'])]
     #[ORM\Column(type: 'string', length: 100)]
     private $nom;
 
-    #[Groups(['lieu', 'ville'])]
+    #[Groups(['getLieu', 'getVille', 'postLieu'])]
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $rue;
 
-    #[Groups(['lieu', 'ville'])]
+    #[Groups(['getLieu', 'getVille', 'postLieu'])]
     #[ORM\Column(type: 'float', nullable: true)]
     private $latitude;
 
-    #[Groups(['lieu', 'ville'])]
+    #[Groups(['getLieu', 'getVlle', 'postLieu'])]
     #[ORM\Column(type: 'float', nullable: true)]
     private $longitude;
 
-    #[Groups('lieu')]
-    #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'lieux')]
+    #[Groups(['getLieu', 'postLieu'])]
+    #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'lieux', cascade: ["persist"])]
     #[ORM\JoinColumn(nullable: false)]
     private $ville;
 
-    #[Groups('lieu')]
+    #[Groups('getLieu')]
     #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class, orphanRemoval: true)]
     private $sorties;
 

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <h1>Modifier la ville</h1>
+    {{ form_start(villeForm) }}
+    {{ form_widget(villeForm) }}
+    <button>Valider</button>
+    {{ form_end(villeForm) }}
+{% endblock %}
+
