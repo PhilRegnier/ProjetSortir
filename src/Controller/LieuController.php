@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Lieu;
 use App\Form\LieuFormType;
-use App\Repository\LieuRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +24,7 @@ class LieuController extends AbstractController
     #[Route('/ajouter', name: '_ajouter')]
     public function ajouter(
         Request $request,
+        VilleRepository $villeRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
@@ -39,6 +40,7 @@ class LieuController extends AbstractController
         }
         return $this->render('lieu/ajouter.html.twig',[
             "lieuForm" => $form->createView(),
+            "villes"  => $villeRepository->findAll(),
             "lieu"  => $lieu
         ]);
     }

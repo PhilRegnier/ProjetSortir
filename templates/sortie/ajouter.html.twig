@@ -20,7 +20,11 @@
                 <div class="col-sm-10" name="ville[nom]">
                     <select class="form-select" id="ville" name="sortie_form_ville">
                         {% for ville in villes %}
-                            <option value="{{ ville.id }}">{{ ville.nom }}</option>
+                            {% if ville.nom == app.user.campus.nom %}
+                                <option value="{{ ville.id }}" selected>{{ ville.nom }}</option>
+                            {% else %}
+                                <option value="{{ ville.id }}">{{ ville.nom }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>

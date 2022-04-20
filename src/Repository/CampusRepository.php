@@ -49,15 +49,23 @@ class CampusRepository extends ServiceEntityRepository
     /**
      * @return Campus[] Returns an array of Campus objects
      */
-    public function findAllOthers(Campus $campus): array
+    public function findAllSorted(Campus $campusFirst): array
     {
-        return $this->createQueryBuilder('c')
+
+        $others = $this->createQueryBuilder('c')
             ->andWhere('c <> :val')
-            ->setParameter('val', $campus)
+            ->setParameter('val', $campusFirst)
             ->orderBy('c.nom', 'ASC')
             ->getQuery()
             ->getResult()
         ;
+
+        $campus[] = $campusFirst;
+        foreach ($others as $other) {
+            $campus[] = $other;
+        }
+
+        return $campus;
     }
     // /**
     //  * @return Campus[] Returns an array of Campus objects
