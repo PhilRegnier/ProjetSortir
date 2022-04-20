@@ -45,12 +45,12 @@ header {
     border: solid 1px;
     margin: auto;
 }
-.header-links {
+.links {
     display: flex;
     margin: auto;
     justify-content: space-between;
 }
-.header-link {
+.link {
     text-decoration: none;
     padding-left: 50px;
     font-size: 25px;
@@ -128,7 +128,7 @@ footer {
 .bloc-filtres {
     display: flex;
     justify-content: space-between;
-    width: 1100px;
+    width: 90%;
     margin: 0 auto;
     border: solid 1px #0d6efd;
     border-radius: 15px;
@@ -177,10 +177,9 @@ table {
 }
 .styled-table {
     border-collapse: collapse;
-    margin: 25px 0;
+    margin: auto;
     font-size: 0.9em;
     font-family: sans-serif;
-    min-width: 400px;
 }
 .styled-table thead tr {
     background-color: #009879;
@@ -201,6 +200,9 @@ table {
 
 .styled-table tbody tr:last-of-type {
     border-bottom: 2px solid #0d6efd;
+}
+.styled-table-mobile {
+    display: none;
 }
 .btn-sortie {
     margin-left: 50px;
@@ -349,4 +351,50 @@ table {
 }
 #modal .container a.close:hover{
     color: red;
+}
+/* Nouvelles règles pour les écrans plus petits et responsive */
+@media screen and (max-width: 1200px)
+{
+    header { width: auto }
+    .main-content { width: auto }
+    footer { width: auto }
+}
+@media screen and (max-width: 800px)
+{
+    .mini-bloc-date { display: none}
+    .main-title {
+        font-size: 30px;
+    }
+    .filtrer-title { display: none }
+    .bloc-filtres { display: none}
+    .login-title
+    {
+        display: none;
+    }
+    .links {
+        display: none;
+    }
+    footer {
+        display: none;
+    }
+    header {
+        border: none;
+        width: auto;
+        margin: 0 auto;
+    }
+    .main-content {
+        border: none;
+        width: auto;
+    }
+    .login-form {
+        padding: unset;
+    }
+    /*CSS lié à l'affichage des sorties*/
+    .styled-table {
+        display: none;
+    }
+    .styled-table-mobile {
+        display: block;
+        border: solid 1px black;
+    }
 }

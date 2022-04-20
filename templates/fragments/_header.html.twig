@@ -2,17 +2,17 @@
     <a  class="main-title" href="{{ path('main_connecte') }}">
         <h1 class="main-title">Logo Sortir.com</h1>
     </a>
-    <div class="header-links">
+    <div class="links">
     {% if not app.user %}
-        <a class="header-link" href="{{ path('app_register') }}">S'inscrire</a>
-        <a class="header-link" href="{{ path('app_login') }}">Se connecter</a>
+        <a class="link" href="{{ path('app_register') }}">S'inscrire</a>
+        <a class="link" href="{{ path('app_login') }}">Se connecter</a>
     {% endif %}
     {% if app.user %}
-        <a class="header-link" href="{{ path('main_connecte') }}">Accueil</a>
-        <a class="header-link" href="{{ path('participant_monprofil') }}">Mon profil</a>
-        <a class="header-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+        <a class="link" href="{{ path('main_connecte') }}">Accueil</a>
+        <a class="link" href="{{ path('participant_monprofil') }}">Mon profil</a>
+        <a class="link" href="{{ path('app_logout') }}">Se déconnecter</a>
         {% if is_granted('ROLE_ADMIN') %}
-            <a  class="header-link" href="{{ path('admin') }}">admin</a>
+            <a  class="link" href="{{ path('admin') }}">admin</a>
         {% endif %}
     {% endif %}
     </div>
