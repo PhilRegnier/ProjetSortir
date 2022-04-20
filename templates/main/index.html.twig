@@ -91,4 +91,21 @@
             </a>
         </form>
     </div>
+
+    <div class="styled-table styled-table-mobile">
+        <table>
+            <tr>
+                <th>Nom de la sortie</th>
+                <th>Date de la sortie</th>
+                <th>Ville</th>
+            </tr>
+            {% for sortie in sortiesListe %}
+                <tr>
+                    <td>{{ sortie.nom }}</td>
+                    <td>{{ sortie.dateHeureDebut | date('d/m/Y H:i')}}</td>
+                    <td>{{ sortie.lieu.ville.nom }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
