@@ -67,6 +67,18 @@ class CampusRepository extends ServiceEntityRepository
 
         return $campus;
     }
+
+    public function findWithFilter($recherche): array{
+
+        $queryBuilder = $this->createQueryBuilder('s');
+        if (!empty($recherche)) {
+            $queryBuilder
+                ->andWhere('s.nom LIKE :recherche')
+                ->setParameter('recherche', '%' . $recherche . '%');
+        }
+        return $queryBuilder->getQuery()->getResult();
+
+    }
     // /**
     //  * @return Campus[] Returns an array of Campus objects
     //  */
