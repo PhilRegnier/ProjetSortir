@@ -9,6 +9,7 @@ use App\Form\SortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -125,8 +126,10 @@ class SortieController extends AbstractController
 
             $this->addFlash('success', 'La sortie a été modifiée.');
 
-            if ($_POST['publier']) {
+            if ($_POST['publier'] == "true") {
                 $sortie->setEtat($etatRepository->find(2));
+                $this->addFlash('success', 'La sortie a été publiée.');
+
             }
             $entityManager->flush();
         }
@@ -150,7 +153,7 @@ class SortieController extends AbstractController
     {
         $sortie->setEtat($etatRepository->find(2));
         $entityManager->flush();
-        $this->addFlash('success', 'La sortie a été publiée.');
+        $this->addFlash('success', 'La sortie' . $sortie->getNom() . 'a été publiée.');
         return $this->redirectToRoute('main_connecte');
     }
 
@@ -172,10 +175,10 @@ class SortieController extends AbstractController
 
             $sortie->addInscrit($user);
             $entityManager->flush();
-            $this->addFlash('success', 'Vous êtes correctement inscrit à cette sortie');
+            $this->addFlash('success', 'Vous êtes correctement inscrit de la sortie : ' . $sortie->getNom());
 
         } else {
-            $this->addFlash('danger', "Vous ne pouvez pas vous inscrire à cette sortie");
+            $this->addFlash('danger', "Vous ne pouvez pas vous inscrire de la sortie : " . $sortie->getNom());
         }
         return $this->redirectToRoute('main_connecte');
     }
@@ -196,13 +199,24 @@ class SortieController extends AbstractController
             $sortie->removeInscrit($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Vous avez été correctement désinscrit');
+            $this->addFlash('success', 'Vous avez été correctement désinscrit de la sortie : ' . $sortie->getNom());
         } else {
-            $this->addFlash('danger', 'Vous ne pouvez pas vous désinscrire');
+            $this->addFlash('danger', 'Vous ne pouvez pas vous désinscrire de la sortie : ' . $sortie->getNom());
         }
 
 
         return $this->redirectToRoute('main_connecte');
 
+    }
+
+    #[Route('/supprimer{id}', name: '_supprimer', requirements: ["id" => "\d+"])]
+    public function supprimer(
+        Sortie $sortie,
+        SortieRepository $sortieRepository
+    ): Response
+    {
+        $sortieRepository->remove($sortie);
+        $this->addFlash('success', 'La sortie' . $sortie->getNom() . 'à été supprimé avec succès.');
+        return $this->redirectToRoute('ville_gerer');
     }
 }

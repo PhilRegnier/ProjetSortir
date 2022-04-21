@@ -72,15 +72,15 @@
                     <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
                     {% if sortie in sortiesInscrites %}
                         <a href="{{ path('sortie_desinscription', {'id': sortie.id}) }}">Se désinscrire</a>
-                    {% else %}
+                    {% endif %}
+                    {% if not (sortie in sortiesInscrites) and (sortie.etat.id == 2) and (date(sortie.dateHeureDebut) > date("now")) %}
                         <a href="{{ path('sortie_inscription', {'id': sortie.id}) }}">S'inscrire</a>
                     {% endif %}
                     {% if app.user.pseudo == sortie.organisateur.pseudo  %}
-                        {% if sortie.etat.id != 2 %}
+                        {% if sortie.etat.id == 1 %}
                             <a href="{{ path('sortie_publier', {'id': sortie.id}) }}">Publier</a>
                         {% endif %}
                         <a href="{{ path('sortie_modifier', {'id': sortie.id}) }}">Modifier</a>
-                        <a href="{{ path('sortie_detail', {'id': sortie.id}) }}">Afficher</a>
                         {% if date(sortie.dateHeureDebut) > date("now") %}
                             <a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>
                         {% endif %}
