@@ -1,18 +1,24 @@
 
-$(document).ready(updateSortie);
+let currentVille = null;
+let adresses = [];
+let lieux = [];
 
-$("#lieurue").autocomplete({
-    source: arrayGeo
-})
+$(document).ready(updateSortie);
 
 document.getElementById('ville').addEventListener('change', updateSortie);
 document.getElementById('lieu').addEventListener('change', updateLieu);
-document.getElementById('rue').addEventListener('keyup', updateLieuRue);
-document.getElementById('rue').addEventListener('change', updateLieuGeo);
+document.getElementById('lieurue').addEventListener('keyup', rechercheLieuAPI);
+document.getElementById('lieurue').addEventListener('change', updateLieuAPI);
 
 function Lieu(id, nom, rue, latitude, longitude) {
     this.id = id;
     this.nom = nom;
+    this.rue = rue;
+    this.latitude = latitude;
+    this.longitude = longitude;
+}
+
+function Adresse(rue, latitude, longitude) {
     this.rue = rue;
     this.latitude = latitude;
     this.longitude = longitude;
@@ -23,10 +29,6 @@ function Ville(id, nom, codePostal) {
     this.nom = nom;
     this.codePostal = codePostal;
 }
-
-let currentVille = null;
-
-let lieux = [];
 
 function updateAffichageLieu(lieu) {
     $('#rue').text(lieu.rue);
@@ -87,56 +89,52 @@ function updateLieu() {
     }
 }
 
-function updateLieuRue() {
+function rechercheLieuAPI() {
 
-    let recherche = document.getElementById('rue').value;
-    let codePostal = document.getElementById('codePostal').value;
-    console.log(recherche);
-    console.log(codePostal);
+    let recherche = document.getElementById('lieurue').value;
+    if (!recherche) return;
 
     $.ajax(
         {
-            url: 'https://api-adresse.data.gouv.fr/search/?q=' + recherche + '&postcode=' + codePostal + '&autocomplete=1&limit=15',
+            url: 'https://api-adresse.data.gouv.fr/search/?q=' + recherche + '&postcode=' + currentVille.codePostal + '&autocomplete=1',
             method: 'GET'
         }
     )
         .done(
-            (adresses) => {
-                $('#rue').text(adresse.name);
+            (donnees) => {
+                adresses.length = 0;
+                let autocompleteArray = [];
+                for (const adresse of donnees.features) {
+                    adresses.push(new Adresse(adresse.properties.name, adresse.properties.y, adresse.properties.x));
+                    autocompleteArray.push(adresse.properties.name);
+                }
+                autocomplete(document.getElementById("lieurue"), autocompleteArray, 0);
             }
         )
         .fail()
         .always();
 }
 
-function updateLieuGeo() {
+function updateLieuAPI() {
 
-    let recherche = document.getElementById('rue').value;
-
-    $.ajax(
-        {
-            url: 'https://api-adresse.data.gouv.fr/search/?q=recherche&postcode=' + codePostal + '&autocomplete=1',
-            method: 'GET'
+    let rue = document.getElementById('lieurue').value;
+    for (let adresse in adresses) {
+        if (adresse.rue === rue) {
+            document.getElementById('lieulatitude').innerHTML = "";
+            document.getElementById('lieulongitude').innerHTML = "";
+            $('#lieulatitude').text(adresse.latitude);
+            $('#lieulongitude').text(adresse.longitude);
+            break;
         }
-    )
-        .done(
-            (adresse) => {
-                $('#latitude').text(adresse.y);
-                $('#longitude').text(adresse.x);
-            }
-        )
-        .fail()
-        .always();
+    }
 }
 
 function open_mod() {
-    let modal = document.getElementById('modal');
-    modal.className = 'open';
+    document.getElementById('modal').className = 'open';
 }
 
 function close_mod() {
-    let modal = document.getElementById('modal');
-    modal.className = 'close';
+    document.getElementById('modal').className = 'close';
 }
 
 function valideLieu() {

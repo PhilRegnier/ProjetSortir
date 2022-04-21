@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/autocomplete.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1 class="creer-sortie-title">Créer une sortie</h1>
     <div class="creer-sortie-form">
@@ -41,16 +45,22 @@
                     <div class="container auto">
                         <div class="message"></div>
                         <h1 class="modif-sortie-title">Créer un lieu</h1>
-                        <label for="lieunom">Nom*</label>
-                        <input type="text" id="lieunom" name="lieunom" required>
-                        <label for="lieurue">Rue*</label>
-                        <input type="text" id="lieurue" name="lieurue" required>
-                        <label for="lieulatitude">Latitude</label>
-                        <input type="text" id="lieulatitude" name="lieulatitude" value="">
-                        <label for="lieulongitude">Longitude</label>
-                        <input type="text" id="lieulongitude" name="lieulongitude" value="">
-                        <a class="btn btn-primary" href="#" onclick="valideLieu(); close_mod()">Enregistrer</a>
-                        <button type="reset" class="btn btn-primary">Effacer</button>
+                        <form autocomplete=""off">
+                            <label for="lieunom">Nom*</label>
+                            <input type="text" id="lieunom" name="lieunom" required>
+                            <form autocomplete=""off">
+                                <label for="lieurue">Rue*</label>
+                                <div class="autocomplete">
+                                    <input type="text" id="lieurue" name="lieurue" required>
+                                </div>
+                            </form>
+                            <label for="lieulatitude">Latitude</label>
+                            <input type="text" id="lieulatitude" name="lieulatitude" value="">
+                            <label for="lieulongitude">Longitude</label>
+                            <input type="text" id="lieulongitude" name="lieulongitude" value="">
+                            <a class="btn btn-primary" href="#" onclick="valideLieu(); close_mod()">Enregistrer</a>
+                            <button type="reset" class="btn btn-primary">Effacer</button>
+                        </form>
                         <a href="#" onclick="close_mod()" class="close">&times;</a>
                     </div>
                 </div>
@@ -67,8 +77,11 @@
     <button type="reset" class="btn-sortie">Annuler</button>
     {{ form_end(sortieForm) }}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="{{ asset('js/ajout_sortie.js') }}"></script>
+    {%  block js %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="{{ asset('js/autocomplete.js') }}"></script>
+        <script src="{{ asset('js/ajout_sortie.js') }}"></script>
+    {% endblock %}
 
 {% endblock %}
 {% block title %}
