@@ -12,9 +12,8 @@
     <body>
         {% include 'fragments/_header.html.twig' %}
         <div class="main-content">
-        {% include 'fragments/_message.html.twig' %}
-            {% block body %}
-            {% endblock %}
+            {% include 'fragments/_message.html.twig' %}
+            {% block body %}{% endblock %}
         </div>
         {% include 'fragments/_footer.html.twig' %}
         <script src="{{ asset('js/base_url.js') }}"></script>
