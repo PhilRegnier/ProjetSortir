@@ -155,10 +155,11 @@ table {
 }
 .mini-bloc-date {
     display: flex;
-    padding: 10px;
-    margin-left: 790px;
-    margin-top: 30px;
-    margin-right: 60px;
+    float: right;
+    width: 25%;
+    margin-top: 5%;
+    margin-right: 5%;
+    margin-bottom: 2.5%;
     /*border: solid 1px black;*/
     font-weight: bold;
     border-radius: 15px;
@@ -201,7 +202,7 @@ table {
 .styled-table tbody tr:last-of-type {
     border-bottom: 2px solid #0d6efd;
 }
-.styled-table-mobile {
+.table-striped-mobile {
     display: none;
 }
 .btn-sortie {
@@ -227,7 +228,7 @@ table {
 }
 /*CSS lié à l'affichage d'une sortie*/
 .detail-sortie-body {
-    width: 1100px;
+    width: 90%;
     margin: auto;
 }
 .detail-sortie-title {
@@ -245,7 +246,7 @@ table {
 }
 .sortie-bloc {
     display: flex;
-    width: 1100px;
+    width: 90%;
     margin: 0 auto;
     justify-content: space-around;
     font-size: 20px;
@@ -255,12 +256,12 @@ table {
 }
 .sortie-bloc-gauche {
     display: flex;
-    width: 500px;
+    width: 50%;
     justify-content: space-around;
 }
 .sortie-bloc-droit {
     display: flex;
-    width: 500px;
+    width: 50%;
     justify-content: space-around;
 }
 .label-sortie {
@@ -352,6 +353,11 @@ table {
 #modal .container a.close:hover{
     color: red;
 }
+
+.table-striped {
+    width: 90%;
+    margin-top: 30px;
+}
 /* Nouvelles règles pour les écrans plus petits et responsive */
 @media screen and (max-width: 1200px)
 {
@@ -390,11 +396,15 @@ table {
         padding: unset;
     }
     /*CSS lié à l'affichage des sorties*/
-    .styled-table {
+    .table-striped {
         display: none;
     }
-    .styled-table-mobile {
+    .table-striped-mobile {
         display: block;
-        border: solid 1px black;
+        margin: auto;
     }
+    .btn-sortie-form { display: none }
+
+    .sortie-bloc { display: block;}
+
 }
