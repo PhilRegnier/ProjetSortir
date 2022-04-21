@@ -7,7 +7,7 @@ $(document).ready(updateSortie);
 
 document.getElementById('ville').addEventListener('change', updateSortie);
 document.getElementById('lieu').addEventListener('change', updateLieu);
-document.getElementById('lieurue').addEventListener('keyup', rechercheLieuAPI);
+document.getElementById('lieurue').addEventListener('input', rechercheLieuAPI);
 document.getElementById('lieurue').addEventListener('change', updateLieuAPI);
 
 function Lieu(id, nom, rue, latitude, longitude) {
@@ -30,10 +30,18 @@ function Ville(id, nom, codePostal) {
     this.codePostal = codePostal;
 }
 
-function updateAffichageLieu(lieu) {
+function updateAffichageSortie(lieu) {
     $('#rue').text(lieu.rue);
-    $('#latitude').text(lieu.latitude);
-    $('#longitude').text(lieu.longitude);
+    if (lieu.latitude) {
+        $('#latitude').text(lieu.latitude);
+    } else {
+        $('#latitude').text('--');
+    }
+    if (lieu.longitude) {
+        $('#longitude').text(lieu.longitude);
+    } else {
+        $('#longitude').text('--');
+    }
 }
 
 function resetLieu() {
@@ -69,7 +77,7 @@ function updateSortie() {
 
                 $('#lieu').append($(`<option value="${lieu.id}">${lieu.nom}</option>`));
                 if (selected) {
-                    updateAffichageLieu(lieu);
+                    updateAffichageSortie(lieu);
                     selected = false;
                 }
             }
@@ -84,7 +92,7 @@ function updateLieu() {
     let lieuId = document.getElementById('lieu').value;
     for (const lieu of lieux) {
         if (lieu.id == lieuId) {
-            updateAffichageLieu(lieu);
+            updateAffichageSortie(lieu);
         }
     }
 }
@@ -96,7 +104,7 @@ function rechercheLieuAPI() {
 
     $.ajax(
         {
-            url: 'https://api-adresse.data.gouv.fr/search/?q=' + recherche + '&postcode=' + currentVille.codePostal + '&autocomplete=1',
+            url: 'https://api-adresse.data.gouv.fr/search/?q=' + recherche + '&postcode=' + currentVille.codePostal + '&limit=5&autocomplete=1',
             method: 'GET'
         }
     )
@@ -118,18 +126,25 @@ function rechercheLieuAPI() {
 function updateLieuAPI() {
 
     let rue = document.getElementById('lieurue').value;
-    for (let adresse in adresses) {
+    for (const adresse of adresses) {
+        console.log(adresse.rue);
+        console.log(rue);
         if (adresse.rue === rue) {
             document.getElementById('lieulatitude').innerHTML = "";
             document.getElementById('lieulongitude').innerHTML = "";
-            $('#lieulatitude').text(adresse.latitude);
-            $('#lieulongitude').text(adresse.longitude);
+            $('#lieulatitude').val(adresse.latitude);
+            $('#lieulongitude').val(adresse.longitude);
             break;
         }
     }
 }
 
 function open_mod() {
+    $('#lieutitre').text("Créer un nouveau lieu à " + currentVille.nom);
+    $('#lieunom').val("");
+    $('#lieurue').val("");
+    $('#lieulatitude').val("");
+    $('#lieulongitude').val("");
     document.getElementById('modal').className = 'open';
 }
 
@@ -148,6 +163,9 @@ function valideLieu() {
 
     // TODO : controle de la valeur de longitude et latitude (revoir le regex)
     //  en attendant de les récupérer de l'API Geo
+
+    if (!nom) return false;
+    if (!rue) return false;
 
     if (!latitude || !regex.test(latitude)) {
         latitude = 0;
@@ -191,7 +209,7 @@ function enregistreNouveauLieu(nouveauLieu) {
                 nouveauLieu.longitude = lieu.longitude;
                 lieux.push(nouveauLieu);
                 $('#lieu').append($(`<option value="${lieu.id}" selected>${lieu.nom}</option>`));
-                updateAffichageLieu(lieu);
+                updateAffichageSortie(lieu);
             }
         )
         .fail()

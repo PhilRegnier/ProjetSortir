@@ -44,16 +44,14 @@
                     <div class="mask"></div>
                     <div class="container auto">
                         <div class="message"></div>
-                        <h1 class="modif-sortie-title">Créer un lieu</h1>
-                        <form autocomplete=""off">
+                        <h1 class="modif-sortie-title" id="lieutitre">Créer un lieu</h1>
+                        <form autocomplete="off">
                             <label for="lieunom">Nom*</label>
                             <input type="text" id="lieunom" name="lieunom" required>
-                            <form autocomplete=""off">
-                                <label for="lieurue">Rue*</label>
-                                <div class="autocomplete">
-                                    <input type="text" id="lieurue" name="lieurue" required>
-                                </div>
-                            </form>
+                            <label for="lieurue">Rue*</label>
+                            <div class="autocomplete">
+                                <input type="text" id="lieurue" name="lieurue" required>
+                            </div>
                             <label for="lieulatitude">Latitude</label>
                             <input type="text" id="lieulatitude" name="lieulatitude" value="">
                             <label for="lieulongitude">Longitude</label>
@@ -77,13 +75,14 @@
     <button type="reset" class="btn-sortie">Annuler</button>
     {{ form_end(sortieForm) }}
 
-    {%  block js %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="{{ asset('js/autocomplete.js') }}"></script>
-        <script src="{{ asset('js/ajout_sortie.js') }}"></script>
-    {% endblock %}
-
 {% endblock %}
+
+{%  block js %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="{{ asset('js/autocomplete.js') }}"></script>
+      <script src="{{ asset('js/ajout_sortie.js') }}"></script>
+{% endblock %}
+
 {% block title %}
     Sortir.com - Ajout d'une sortie
 {% endblock %}

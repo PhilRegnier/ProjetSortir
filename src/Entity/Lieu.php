@@ -44,7 +44,7 @@ class Lieu
     #[ORM\Column(type: 'float', nullable: true)]
     private $latitude;
 
-    #[Groups(['getLieu', 'getVlle', 'postLieu'])]
+    #[Groups(['getLieu', 'getVille', 'postLieu'])]
     #[ORM\Column(type: 'float', nullable: true)]
     private $longitude;
 
