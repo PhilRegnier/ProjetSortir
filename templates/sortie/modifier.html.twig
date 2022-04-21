@@ -43,11 +43,11 @@
         </div>
     </div>
     <div class="buttons-bloc">
-        <button type="submit" class="btn-sortie btn-modif">Modifier</button>
+        <button type="submit" class="btn-sortie btn-modif" name="publier" value="false" >Enregistrer</button>
         <button type="submit" class="btn-sortie btn-modif" name="publier" value="true">Publier</button>
-        <a class="btn btn-primary" href="{{ path('sortie_annuler', {'id': sortie.id}) }}" role="button">Supprimer</a>
-        <button type="reset" class="btn-sortie btn-modif">Annuler</button>
         {{ form_end(modifSortieForm) }}
+        <a class="btn btn-primary" href="{{ path('sortie_supprimer', {'id': sortie.id}) }}" role="button">Supprimer</a>
+        <a class="btn-sortie btn-modif" href="{{ path('main_home') }}" >Annuler</a>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/ajout_sortie.js') }}"></script>
