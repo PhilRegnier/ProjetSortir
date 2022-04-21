@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="{{ asset('css/autocomplete.css') }}">
     </head>
     <body>
-        <script src="{{ asset('js/base_url.js') }}"></script>
         {% include 'fragments/_header.html.twig' %}
         <div class="main-content">
         {% include 'fragments/_message.html.twig' %}
@@ -18,6 +17,7 @@
             {% endblock %}
         </div>
         {% include 'fragments/_footer.html.twig' %}
+        <script src="{{ asset('js/base_url.js') }}"></script>
         {%  block js %}{% endblock %}
     </body>
 </html>
