@@ -96,22 +96,26 @@
         </a>
     </form>
     {#    Tableau lié à l'affichage des sorties en mode mobile #}
-        <table class="table table-striped table-striped-mobile">
-            <thead class="d-flex justify-content-center">
-            <tr class="table-primary">
-                <th scope="col">Nom de la sortie</th>
-                <th scope="col">Date de la sortie</th>
-                <th scope="col">Ville</th>
+    <h1 class="sorties-mobile-title">Mes Sorties : </h1>
+
+    <table class="table table-striped-sorties">
+        <thead>
+        <tr class="table-primary">
+            <th scope="col">Nom de la sortie</th>
+            <th scope="col">Date de la sortie</th>
+            <th scope="col">Ville</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for sortie in sortiesListe %}
+            <tr>
+                <td>
+                    <a href="{{ path('sortie_detail', {'id': sortie.id}) }}"> {{ sortie.nom }}</a>
+                </td>
+                <td>{{ sortie.dateHeureDebut | date('d/m/Y H:i')}}</td>
+                <td>{{ sortie.lieu.ville.nom }}</td>
             </tr>
-            </thead>
-            <tbody class="d-flex justify-content-center">
-            {% for sortie in sortiesListe %}
-                <tr>
-                    <td>{{ sortie.nom }}</td>
-                    <td>{{ sortie.dateHeureDebut | date('d/m/Y H:i')}}</td>
-                    <td>{{ sortie.lieu.ville.nom }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
