@@ -12,23 +12,24 @@ function autocomplete(inp, arr, flag) {
 
     let currentFocus = -1;
 
-    // execute a function when someone writes in the text field
+    /*
+     * execute a function when someone writes in the text field
+     * close any already open lists of autocompleted values
+     * create a DIV element that will contain the items (values)
+     * append the DIV element as a child of the autocomplete container
+     */
     inp.addEventListener("input", function(e) {
         let a, b;
-
         let val = this.value;
 
-        // close any already open lists of autocompleted values
         closeAllLists();
 
         if (!val) { return false;}
 
-        // create a DIV element that will contain the items (values)
         a = document.createElement("div");
         a.setAttribute("id", this.id + "autocomplete-list");
         a.setAttribute("class", "autocomplete-items");
 
-        // append the DIV element as a child of the autocomplete container
         this.parentNode.appendChild(a);
 
         if (flag === 1) {
