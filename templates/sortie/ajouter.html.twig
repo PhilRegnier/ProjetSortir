@@ -63,20 +63,22 @@
                     <label for="lieunom" class="form-label required">Nom*</label>
                     <input class="form-control" type="text" id="lieunom" name="lieunom" required><br>
                 </div>
-                <div class="form-group autocomplete">
+                <div class="autocomplete form-group ">
                     <label for="lieurue" class="form-label required">Rue*</label>
-                    <input class="form-control" type="text" id="lieurue" name="lieurue" required>
+                    <input class="form-control input-rue" type="text" id="lieurue" name="lieurue" required>
                 </div>
-                <div class="form-group">
-                    <label for="lieulatitude" class="form-label">Latitude</label>
-                    <input class="form-control" type="text" id="lieulatitude" name="lieulatitude" value="">
+                <div class="div-lat-long">
+                    <div class="form-group">
+                        <label for="lieulatitude" class="form-label">Latitude</label>
+                        <input class="form-control" type="text" id="lieulatitude" name="lieulatitude" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="lieulongitude" class="form-label">Longitude</label>
+                        <input class="form-control" type="text" id="lieulongitude" name="lieulongitude" value="">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="lieulongitude" class="form-label">Longitude</label>
-                    <input class="form-control" type="text" id="lieulongitude" name="lieulongitude" value="">
-                </div>
-                <a class="btn btn-primary" href="#" onclick="valideLieu(); close_mod()">Enregistrer</a>
-                <button type="reset" class="btn btn-primary">Effacer</button>
+                <a class="btn-sortie" href="#" onclick="valideLieu(); close_mod()">Enregistrer</a>
+                <button type="reset" class="btn-sortie">Effacer</button>
             </form>
             <a href="#" onclick="close_mod()" class="close">&times;</a>
         </div>
