@@ -53,26 +53,26 @@
     <button type="reset" class="btn-sortie">Annuler</button>
     {{ form_end(sortieForm) }}
 
-    <div id="modal">
         <div class="mask"></div>
-        <div class="container auto">
+        <div class="container auto creer-sortie-form">
             <div class="message"></div>
             <h1 class="modif-sortie-title" id="lieutitre">Créer un lieu</h1>
             <form autocomplete="off">
                 <div class="form-group">
-                    <label for="lieunom">Nom*</label>
+                    <label class="form-label required" for="lieunom">Nom*</label>
                     <input class="form-control" type="text" id="lieunom" name="lieunom" required><br>
                 </div>
                 <div class="form-group">
-                    <label for="lieurue">Rue*</label>
+                    <label class="form-label required" for="lieurue">Rue*</label>
                     <div class="autocomplete">
+                        <br>
                         <input class="form-control" type="text" id="lieurue" name="lieurue" required>
                     </div>
                 </div>
-                <label for="lieulatitude">Latitude</label>
-                <input type="text" id="lieulatitude" name="lieulatitude" value="">
-                <label for="lieulongitude">Longitude</label>
-                <input type="text" id="lieulongitude" name="lieulongitude" value="">
+                <label class="form-label" for="lieulatitude">Latitude</label>
+                <input class="form-control" type="text" id="lieulatitude" name="lieulatitude" value="">
+                <label class="form-label" for="lieulongitude">Longitude</label>
+                <input class="form-control" type="text" id="lieulongitude" name="lieulongitude" value="">
                 <a class="btn btn-primary" href="#" onclick="valideLieu(); close_mod()">Enregistrer</a>
                 <button type="reset" class="btn btn-primary">Effacer</button>
             </form>

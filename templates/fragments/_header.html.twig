@@ -3,13 +3,9 @@
         <img class="logo-sortir" src="{{ asset('ressources/images/logo-sortir.jpg') }}" alt="sortir.com logo">
     </a>
     <div class="links">
-    {% if not app.user %}
-        <a class="link" href="{{ path('app_register') }}"><i class="fa-solid fa-pen-to-square"></i></a>
-        <a class="link" href="{{ path('app_login') }}"><i class="fa-solid fa-right-to-bracket"></i></a>
-    {% endif %}
     {% if is_granted('ROLE_ADMIN') %}
-        <a class="link link-text" href="{{ path('ville_gerer') }}">Villes</a>
-        <a class="link link-text" href="{{ path('campus_gerer') }}">Campus</a>
+        <a class="link link-text" href="{{ path('ville_gerer') }}"><i class="fa-solid fa-city"></i></a>
+        <a class="link link-text" href="{{ path('campus_gerer') }}"><i class="fa-solid fa-school-flag"></i></a>
     {% endif %}
     {% if app.user %}
         <a class="link" href="{{ path('main_connecte') }}"><i class="fa-solid fa-house"></i></a>
@@ -17,6 +13,7 @@
         <a class="link" href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i></a>
         {% if is_granted('ROLE_ADMIN') %}
             <a  class="link" href="{{ path('admin') }}"><i class="fa-solid fa-lock"></i></a>
+            <a class="link" href="{{ path('app_register') }}"><i class="fa-solid fa-pen-to-square"></i></a>
         {% endif %}
     {% endif %}
     </div>

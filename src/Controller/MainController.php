@@ -102,11 +102,6 @@ class MainController extends AbstractController
         //On récupère la liste des sorties pour lesquelles l'utilisateur est inscrit
         $sortiesInscrites = $participantRepository->findOneBy(["mail" => $this->getUser()->getUserIdentifier()])->getSortiesInscrites();
 
-        dump('a'.$filtreForm->isSubmitted());
-        if ($filtreForm->isSubmitted()) {
-            dump('b'.$filtreForm->isValid());
-        }
-
         if ($filtreForm->isSubmitted() && $filtreForm->isValid())
         {
             if (!empty ($filtreForm->get('campus')->getData())) {
