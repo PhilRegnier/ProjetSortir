@@ -18,6 +18,9 @@ class SortieFormType extends AbstractType
             ->add('nom')
             ->add('dateHeureDebut',
                 DateTimeType::class,
+                [
+                    'widget' => 'single_text'
+                ]
             )
             ->add('duree')
             ->add('dateLimiteInscription',
