@@ -127,13 +127,21 @@ function updateLieuAPI() {
 
     let rue = document.getElementById('lieurue').value;
     for (const adresse of adresses) {
-        console.log(adresse.rue);
-        console.log(rue);
         if (adresse.rue === rue) {
             document.getElementById('lieulatitude').innerHTML = "";
             document.getElementById('lieulongitude').innerHTML = "";
-            $('#lieulatitude').val(adresse.latitude);
-            $('#lieulongitude').val(adresse.longitude);
+
+            if (!adresse.latitude || !adresse.longitude) {
+                $('#lieulatitude').val(adresse.latitude);
+                $('#lieulongitude').val(adresse.longitude);
+                $('#lieulatitude2').text(adresse.latitude);
+                $('#lieulongitude2').text(adresse.longitude);
+            } else {
+                $('#lieulatitude').val("--");
+                $('#lieulongitude').val("--");
+                $('#lieulatitude2').text("--");
+                $('#lieulongitude2').text(adresse.longitude);
+            }
             break;
         }
     }
