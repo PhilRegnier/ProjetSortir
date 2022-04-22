@@ -2,11 +2,13 @@
 
 {% block body %}
     <h1 class="detail-sortie-title">Gérer les villes</h1>
-    <h2>Filtrer les villes</h2>
-    {{ form_start(searchForm) }}
-    {{ form_widget(searchForm) }}
-    <button>Rechercher</button>
-    {{ form_end(searchForm) }}
+    <div class="filtrer-entete">
+        <h2>Filtrer les villes</h2>
+        {{ form_start(searchForm) }}
+        {{ form_widget(searchForm) }}
+        <button>Rechercher</button>
+        {{ form_end(searchForm) }}
+    </div>
     <div class="styled-table">
         <table>
             <tr>

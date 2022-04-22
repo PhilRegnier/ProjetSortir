@@ -55,10 +55,12 @@ header {
 }
 .link {
     text-decoration: none;
-    margin-left: 40%;
-    margin-right: 40%;
+    padding: 4%;
     font-size: 30px;
     color: black;
+}
+.link-text {
+    font-size: 25px;
 }
 .link:hover {
     transform: scale(1.5);
@@ -386,6 +388,11 @@ label {
 .table-striped {
     width: 90%;
     margin-top: 30px;
+}
+.filtrer-entete {
+    width: 80%;
+    margin: auto;
+    border: solid;
 }
 /* Nouvelles règles pour les écrans plus petits et responsive */
 @media screen and (max-width: 1200px)
