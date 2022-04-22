@@ -139,7 +139,7 @@ class SortieController extends AbstractController
     {
         $sortie->setEtat($etatRepository->find(2));
         $entityManager->flush();
-        $this->addFlash('success', 'La sortie' . $sortie->getNom() . 'a été publiée.');
+        $this->addFlash('success', 'La sortie ' . $sortie->getNom() . ' a été publiée.');
         return $this->redirectToRoute('main_connecte');
     }
 
