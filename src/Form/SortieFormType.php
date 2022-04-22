@@ -20,7 +20,7 @@ class SortieFormType extends AbstractType
                 DateTimeType::class,
                 [
                     'widget' => 'single_text',
-                    'data' => (new \DateTime('now'))->modify('+5 days')
+                    'data' => (new \DateTime("now"))->modify('+5 days')
                 ]
             )
             ->add('duree')
@@ -28,7 +28,7 @@ class SortieFormType extends AbstractType
                 DateType::class,
                 [
                     'widget' => 'single_text',
-                    'data' => (new \DateTime('now'))->modify('+4 days')
+                    'data' => (new \DateTime("now"))->modify('+4 days')
                 ]
             )
             ->add('nbInscriptionsMax')

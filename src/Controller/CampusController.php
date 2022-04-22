@@ -26,7 +26,7 @@ class CampusController extends AbstractController
     {
         $campuses = $campusRepository->findAll();
 
-        //  Formulaire de recherche d'une ville
+        //  Formulaire de recherche d'un campus
         $searchForm = $this->createFormBuilder()
             ->add("recherche", TextType::class,
                 [
@@ -34,6 +34,7 @@ class CampusController extends AbstractController
                     "required" => false
                 ])
             ->getForm();
+
         $searchForm->handleRequest($request);
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             if (!empty($searchForm->get("recherche")->getData())){
@@ -80,7 +81,6 @@ class CampusController extends AbstractController
         Request $request
     ): Response
     {
-
         $campusForm = $this->createForm(CampusFormType::class, $campus);
         $campusForm->handleRequest($request);
         if ($campusForm->isSubmitted() && $campusForm->isValid()) {
@@ -88,8 +88,6 @@ class CampusController extends AbstractController
             $this->addFlash('success', 'Le Campus à été modifié avec succès.');
             return $this->redirectToRoute("campus_gerer");
         }
-
-
 
         return $this->render('campus/modifier.html.twig',
             [
