@@ -210,6 +210,6 @@ class SortieController extends AbstractController
     {
         $sortieRepository->remove($sortie);
         $this->addFlash('success', 'La sortie' . $sortie->getNom() . 'à été supprimé avec succès.');
-        return $this->redirectToRoute('ville_gerer');
+        return $this->redirectToRoute('main_connecte');
     }
 }

@@ -60,12 +60,12 @@ class SortieRepository extends ServiceEntityRepository
         }
         if (!empty($filtre['dateSortieDebut'])) {
             $queryBuilder
-                ->andWhere('s.dateHeureDebut LIKE :dateSortieDebut')
+                ->andWhere('s.dateHeureDebut > :dateSortieDebut')
                 ->setParameter('dateSortieDebut', $filtre['dateSortieDebut']);
         }
         if (!empty($filtre['$dateSortieFin'])) {
             $queryBuilder
-                ->andWhere('s.dateHeureDebut LIKE :dateSortieDebut')
+                ->andWhere('s.dateHeureDebut < :dateSortieFin')
                 ->setParameter('dateSortieDebut', $filtre['$dateSortieFin']);
         }
         if (!empty($filtre['userIdentifier'])) {
