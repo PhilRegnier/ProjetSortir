@@ -40,40 +40,6 @@
                     <select class="form-select" id="lieu" name="lieu_id"></select>
                     <a class="btn btn-primary" href="#" onclick="open_mod()">+</a>
                 </div>
-                <div id="modal">
-                    <div class="mask"></div>
-                    <div class="container auto">
-                        <div class="message"></div>
-                        <h1 class="modif-sortie-title" id="lieutitre">Créer un lieu</h1>
-                        <form autocomplete="off">
-                            <div class="form-group">
-                                <label for="lieunom">Nom*</label>
-                                <input class="form-control" type="text" id="lieunom" name="lieunom" required><br>
-                            </div>
-                            <div class="form-group">
-                                <label for="lieurue">Rue*</label>
-                                <div class="autocomplete">
-                                    <input class="form-control" type="text" id="lieurue" name="lieurue" required>
-                                </div>
-                            </div>
-                            <div class="div-lat-long">
-                                <div class="form-group">
-                                    <label for="lieulatitude">Latitude</label>
-                                    <input class="form-control" type="text" id="lieulatitude" name="lieulatitude" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="lieulongitude">Longitude</label>
-                                    <input class="form-control" type="text" id="lieulongitude" name="lieulongitude" value="">
-                                </div>
-                            </div>
-                            <div class="buttons-lieu">
-                                <a class="btn btn-primary" href="#" onclick="valideLieu(); close_mod()">Enregistrer</a>
-                                <button type="reset" class="btn btn-primary">Effacer</button>
-                            </div>
-                        </form>
-                        <a href="#" onclick="close_mod()" class="close">&times;</a>
-                    </div>
-                </div>
             </div>
 
             <p>Code postal : <span id="codePostal"></span></p>
@@ -86,6 +52,33 @@
     <button type="submit" class="btn-sortie">Enregistrer</button>
     <button type="reset" class="btn-sortie">Annuler</button>
     {{ form_end(sortieForm) }}
+
+    <div id="modal">
+        <div class="mask"></div>
+        <div class="container auto">
+            <div class="message"></div>
+            <h1 class="modif-sortie-title" id="lieutitre">Créer un lieu</h1>
+            <form autocomplete="off">
+                <div class="form-group">
+                    <label for="lieunom">Nom*</label>
+                    <input class="form-control" type="text" id="lieunom" name="lieunom" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="lieurue">Rue*</label>
+                    <div class="autocomplete">
+                        <input class="form-control" type="text" id="lieurue" name="lieurue" required>
+                    </div>
+                </div>
+                <label for="lieulatitude">Latitude</label>
+                <input type="text" id="lieulatitude" name="lieulatitude" value="">
+                <label for="lieulongitude">Longitude</label>
+                <input type="text" id="lieulongitude" name="lieulongitude" value="">
+                <a class="btn btn-primary" href="#" onclick="valideLieu(); close_mod()">Enregistrer</a>
+                <button type="reset" class="btn btn-primary">Effacer</button>
+            </form>
+            <a href="#" onclick="close_mod()" class="close">&times;</a>
+        </div>
+    </div>
 
 {% endblock %}
 
