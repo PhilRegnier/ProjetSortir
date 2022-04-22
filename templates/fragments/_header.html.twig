@@ -4,15 +4,15 @@
     </a>
     <div class="links">
     {% if not app.user %}
-        <a class="link" href="{{ path('app_register') }}">S'inscrire</a>
-        <a class="link" href="{{ path('app_login') }}">Se connecter</a>
+        <a class="link" href="{{ path('app_register') }}"><i class="fa-solid fa-pen-to-square"></i></a>
+        <a class="link" href="{{ path('app_login') }}"><i class="fa-solid fa-right-to-bracket"></i></a>
     {% endif %}
     {% if app.user %}
-        <a class="link" href="{{ path('main_connecte') }}">Accueil</a>
-        <a class="link" href="{{ path('participant_monprofil') }}">Mon profil</a>
-        <a class="link" href="{{ path('app_logout') }}">Se déconnecter</a>
+        <a class="link" href="{{ path('main_connecte') }}"><i class="fa-solid fa-house"></i></a>
+        <a class="link" href="{{ path('participant_monprofil') }}"><i class="fa-solid fa-user"></i></a>
+        <a class="link" href="{{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i></a>
         {% if is_granted('ROLE_ADMIN') %}
-            <a  class="link" href="{{ path('admin') }}">admin</a>
+            <a  class="link" href="{{ path('admin') }}"><i class="fa-solid fa-lock"></i></a>
         {% endif %}
     {% endif %}
     </div>

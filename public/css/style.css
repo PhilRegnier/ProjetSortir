@@ -39,7 +39,7 @@
 }
 header {
     display: flex;
-    width: 90%;
+    width: 75%;
     height: 150px;
     text-align: center;
     border: solid 1px;
@@ -51,14 +51,17 @@ header {
 .links {
     display: flex;
     margin: auto;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .link {
     text-decoration: none;
-    padding-left: 50px;
-    font-size: 20px;
-    margin: auto;
+    margin-left: 40%;
+    margin-right: 40%;
+    font-size: 30px;
     color: black;
+}
+.link:hover {
+    transform: scale(1.5);
 }
 .main-title {
     font-size: 50px;
@@ -66,13 +69,15 @@ header {
     text-decoration: none;
 }
 .main-content {
-    width: 90%;
+    width: 75%;
     margin: auto;
-    border: solid 1px;
+    border-left: solid 1px;
+    border-right: solid 1px;
+    border-top: solid white 0.1px;
 }
 footer {
     display: flex;
-    width: 90%;
+    width: 75%;
     height: 50px;
     margin: auto;
     border: solid 1px;
@@ -90,7 +95,8 @@ footer {
 /*CSS lié au profil du participant*/
 .profil-bloc {
     width: 90%;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     justify-content: space-around;
     border-radius: 15px;
@@ -117,13 +123,10 @@ footer {
     /*border: solid 1px black;*/
     width: 70%;
 }
-.flash {
-    text-align: center;
-}
 /*CSS Lié à la partie accueil en mode connecté*/
 .filtrer-title {
     font-size: 20px;
-    margin-left: 50px;
+    margin-left: 5%;
     margin-bottom: 20px;
     font-weight: bold;
     color: #0d6efd;
@@ -160,9 +163,8 @@ table {
     display: flex;
     margin-left: 70%;
     width: 25%;
-    margin-top: 5%;
+    margin-top: 2.5%;
     margin-right: 5%;
-    margin-bottom: 2.5%;
     /*border: solid 1px black;*/
     font-weight: bold;
     border-radius: 15px;
@@ -177,7 +179,7 @@ table {
 }
 .mini-bloc-infos {
     margin: 0 auto;
-    padding-top: 5px;
+    padding-top: 5%;
 }
 .styled-table {
     border-collapse: collapse;
@@ -206,16 +208,15 @@ table {
     border-bottom: 2px solid #0d6efd;
 }
 .table-striped-sorties {
-    width: 90%;
     display: none;
 }
 .sorties-mobile-title {
     display: none;
 }
 .btn-sortie {
-    margin-left: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 5%;
     padding: 10px;
     font-family: arial;
     font-size: 1em;
@@ -242,7 +243,7 @@ table {
     text-align: center;
     color: #0d6efd;
     font-size: 30px;
-    margin-top: 5%;
+    padding-top: 5%;
     margin-bottom: 5%;
 }
 .libelle-sortie {
@@ -311,7 +312,7 @@ table {
 }
 .creer-sortie-form {
     display: flex;
-    width: 1100px;
+    width: 90%;
     margin: 0 auto;
     justify-content: space-around;
     font-size: 20px;
@@ -366,7 +367,22 @@ table {
 #modal .container a.close:hover{
     color: red;
 }
-
+.div-lat-long {
+    display: flex;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.buttons-lieu {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+.form-group {
+    margin-right: 15px;
+}
+label {
+    margin-bottom: 10px;
+}
 .table-striped {
     width: 90%;
     margin-top: 30px;
@@ -419,8 +435,7 @@ table {
         display: none;
     }
     .table-striped-sorties {
-        display: block;
-
+        display: flex;
         width: 90%;
     }
     .btn-sortie-form { display: none }
@@ -453,5 +468,9 @@ table {
         margin-left: auto;
         margin-right: auto;
         margin-top: 5%;
+    }
+    .creer-sortie-form {
+        border: none;
+        display: block;
     }
 }
