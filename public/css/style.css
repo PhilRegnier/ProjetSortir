@@ -49,13 +49,15 @@ header {
     width: 250px;
 }
 .links {
+    width: 50%;
     display: flex;
     margin: auto;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .link {
+    display: block;
     text-decoration: none;
-    padding: 8%;
+    padding: 3%;
     font-size: 30px;
     color: black;
 }

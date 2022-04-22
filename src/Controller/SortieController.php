@@ -56,6 +56,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/detail/{id}', name: '_detail', requirements: ["id" => "\d+"])]
+    #[IsGranted('ROLE_USER')]
     public function detail(
         Sortie $sortie
     ): Response
@@ -64,6 +65,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/annuler/{id}', name: '_annuler', requirements: ["id" => "\d+"])]
+    #[IsGranted('ROLE_USER')]
     public function annuler(
         Sortie $sortie,
         Request $request,
@@ -95,6 +97,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/modifier/{id}', name: '_modifier', requirements: ["id" => "\d+"])]
+    #[IsGranted('ROLE_USER')]
     public function modifier(
         Sortie $sortie,
         Request $request,
@@ -131,6 +134,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/publier/{id}', name: '_publier', requirements: ["id" => "\d+"] )]
+    #[IsGranted('ROLE_USER')]
     public function publier(
         Sortie $sortie,
         EtatRepository $etatRepository,
@@ -145,6 +149,7 @@ class SortieController extends AbstractController
 
 
     #[Route('/inscription/{id}', name: '_inscription', requirements: ["id" => "\d+"] )]
+    #[IsGranted('ROLE_USER')]
     public function inscription(
         Sortie $sortie,
         EntityManagerInterface $entityManager,
@@ -170,6 +175,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/desinscription/{id}', name: '_desinscription', requirements: ["id" => "\d+"] )]
+    #[IsGranted('ROLE_USER')]
     public function desinscription(
         Sortie $sortie,
         EntityManagerInterface $entityManager,
@@ -196,6 +202,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/supprimer{id}', name: '_supprimer', requirements: ["id" => "\d+"])]
+    #[IsGranted('ROLE_USER')]
     public function supprimer(
         Sortie $sortie,
         SortieRepository $sortieRepository

@@ -6,6 +6,7 @@ use App\Entity\Lieu;
 use App\Form\LieuFormType;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LieuController extends AbstractController
 {
     #[Route('/liste{id}', name: '_liste', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_USER')]
     public function listeParVille(): Response
     {
         return $this->render('lieu/index.html.twig', [
@@ -22,6 +24,7 @@ class LieuController extends AbstractController
         ]);
     }
     #[Route('/ajouter', name: '_ajouter')]
+    #[IsGranted('ROLE_USER')]
     public function ajouter(
         Request $request,
         VilleRepository $villeRepository,

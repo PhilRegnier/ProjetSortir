@@ -17,6 +17,9 @@ input[type=text] {
     background-color: #f1f1f1;
     width: 100%;
 }
+input[type=text].input-rue {
+    width: 350%;
+}
 input[type=submit] {
     background-color: DodgerBlue;
     color: #fff;
@@ -31,12 +34,14 @@ input[type=submit] {
     top: 100%;
     left: 0;
     right: 0;
+    width: 350%;
 }
 .autocomplete-items div {
     padding: 10px;
     cursor: pointer;
     background-color: #fff;
     border-bottom: 1px solid #d4d4d4;
+    /*width: 350%;*/
 }
 .autocomplete-items div:hover {
     /*when hovering an item:*/
