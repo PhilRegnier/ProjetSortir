@@ -410,6 +410,12 @@ label {
 .table-striped-villes {
     width: 90%;
 }
+.input-rue {
+    width: 180px;
+}
+#lieutitre {
+    margin-top: 0;
+}
 /* Nouvelles règles pour les écrans plus petits et responsive */
 @media screen and (max-width: 1200px)
 {
