@@ -44,7 +44,7 @@ class CampusController extends AbstractController
         }
 
         $campus = new Campus();
-        $campusForm = $this->createForm(CampusFormType::class);
+        $campusForm = $this->createForm(CampusFormType::class, $campus);
         $campusForm->handleRequest($request);
         if ($campusForm->isSubmitted() && $campusForm->isValid()) {
             $entityManager->persist($campus);
