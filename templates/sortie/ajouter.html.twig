@@ -60,20 +60,21 @@
             <h1 class="modif-sortie-title" id="lieutitre">Créer un lieu</h1>
             <form autocomplete="off">
                 <div class="form-group">
-                    <label for="lieunom">Nom*</label>
+                    <label for="lieunom" class="form-label required">Nom*</label>
                     <input class="form-control" type="text" id="lieunom" name="lieunom" required><br>
                 </div>
-                <div class="form-group">
-                    <label for="lieurue">Rue*</label>
-                    <div class="autocomplete">
-                        <br>
-                        <input class="form-control" type="text" id="lieurue" name="lieurue" required>
-                    </div>
+                <div class="form-group autocomplete">
+                    <label for="lieurue" class="form-label required">Rue*</label>
+                    <input class="form-control" type="text" id="lieurue" name="lieurue" required>
                 </div>
-                <label for="lieulatitude">Latitude</label>
-                <input class="form-control" type="text" id="lieulatitude" name="lieulatitude" value="">
-                <label for="lieulongitude">Longitude</label>
-                <input class="form-control" type="text" id="lieulongitude" name="lieulongitude" value="">
+                <div class="form-group">
+                    <label for="lieulatitude" class="form-label">Latitude</label>
+                    <input class="form-control" type="text" id="lieulatitude" name="lieulatitude" value="">
+                </div>
+                <div class="form-group">
+                    <label for="lieulongitude" class="form-label">Longitude</label>
+                    <input class="form-control" type="text" id="lieulongitude" name="lieulongitude" value="">
+                </div>
                 <a class="btn btn-primary" href="#" onclick="valideLieu(); close_mod()">Enregistrer</a>
                 <button type="reset" class="btn btn-primary">Effacer</button>
             </form>
