@@ -19,12 +19,12 @@ class CampusController extends AbstractController
     #[Route('/gerer', name: '_gerer')]
     #[IsGranted("ROLE_ADMIN")]
     public function gerer(
-        CampusRepository $villeRepository,
+        CampusRepository $campusRepository,
         Request $request,
         EntityManagerInterface $entityManager
     ): Response
     {
-        $campuses = $villeRepository->findAll();
+        $campuses = $campusRepository->findAll();
 
         //  Formulaire de recherche d'une ville
         $searchForm = $this->createFormBuilder()
@@ -38,7 +38,7 @@ class CampusController extends AbstractController
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             if (!empty($searchForm->get("recherche")->getData())){
                 $recherche = $searchForm->get("recherche")->getData();
-                $campuses = $villeRepository->findWithFilter($recherche);
+                $campuses = $campusRepository->findWithFilter($recherche);
             }
         }
 

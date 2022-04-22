@@ -19,14 +19,16 @@ class SortieFormType extends AbstractType
             ->add('dateHeureDebut',
                 DateTimeType::class,
                 [
-                    'widget' => 'single_text'
+                    'widget' => 'single_text',
+                    'data' => (new \DateTime('now'))->modify('+5 days')
                 ]
             )
             ->add('duree')
             ->add('dateLimiteInscription',
                 DateType::class,
                 [
-                    'widget' => 'single_text'
+                    'widget' => 'single_text',
+                    'data' => (new \DateTime('now'))->modify('+4 days')
                 ]
             )
             ->add('nbInscriptionsMax')

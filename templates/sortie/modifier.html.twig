@@ -46,7 +46,7 @@
         <button type="submit" class="btn-sortie btn-modif" name="publier" value="false" >Enregistrer</button>
         <button type="submit" class="btn-sortie btn-modif" name="publier" value="true">Publier</button>
         {{ form_end(modifSortieForm) }}
-        <a class="btn btn-primary" href="{{ path('sortie_supprimer', {'id': sortie.id}) }}" role="button">Supprimer</a>
+        <a class="btn-sortie btn-modif" href="{{ path('sortie_supprimer', {'id': sortie.id}) }}" role="button">Supprimer</a>
         <a class="btn-sortie btn-modif" href="{{ path('main_home') }}" >Annuler</a>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

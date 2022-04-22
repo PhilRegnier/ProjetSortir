@@ -3,51 +3,40 @@
 {% block body %}
     <h1 class="detail-sortie-title">Gérer les villes</h1>
     <div class="filtrer-entete">
-        <h2>Filtrer les villes</h2>
+        <h2 class="gerer-title">Filtrer les villes</h2>
         {{ form_start(searchForm) }}
         {{ form_widget(searchForm) }}
-        <button>Rechercher</button>
+        <button class="btn-sortie btn-gerer">Rechercher</button>
         {{ form_end(searchForm) }}
     </div>
-    <div class="styled-table">
-        <table>
+    <table class="table table-striped-villes">
+        <thead>
+        <tr class="table-primary">
+            <th class="head-sorties" scope="col">Ville</th>
+            <th class="head-sorties" scope="col">Code Postal</th>
+            <th class="head-sorties" scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ville in villes %}
             <tr>
-                <th>Ville</th>
-                <th>Code Postal</th>
-                <th>Actions</th>
+                <td>{{ ville.nom }}</td>
+                <td>{{ ville.codePostal }}</td>
+                <td>
+                    <a href="{{ path('ville_modifier', {'id': ville.id}) }}" onclick="open_mod();" id="modifier">Modifier</a>
+                    <a href="{{ path('ville_supprimer', {'id': ville.id}) }}">Supprimer</a>
+                </td>
             </tr>
-            {% for ville in villes %}
-                <tr>
-                    <td>{{ ville.nom }}</td>
-                    <td>{{ ville.codePostal }}</td>
-                    <td>
-                        <a href="{{ path('ville_modifier', {'id': ville.id}) }}" onclick="open_mod();" id="modifier">Modifier</a>
-                        <a href="{{ path('ville_supprimer', {'id': ville.id}) }}">Supprimer</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            <tr>
-                {{ form_start(villeForm) }}
-                <td>{{ form_row(villeForm.nom) }}</td>
-                <td>{{ form_row(villeForm.codePostal) }}</td>
-                <td><button>Valider</button></td>
-                {{ form_end(villeForm) }}
-            </tr>
-        </table>
-    </div>
-
-{#    <ul id="list-ville"></ul>#}
-{#    <ul>#}
-{#        {% for ville in villes %}#}
-{#            <li value="{{ ville.id }}">{{ ville.nom }} {{ ville.codePostal }}</li>#}
-{#            {% set villeNom = ville.nom %}#}
-{#            <a href="{{ path('ville_modifier', {'id': ville.id}) }}" onclick="open_mod();" id="modifier">Modifier</a>#}
-{#            <a href="{{ path('ville_supprimer', {'id': ville.id}) }}">Supprimer</a>#}
-{#        {% endfor %}#}
-{#    </ul>#}
-
-
-
+        {% endfor %}
+        <tr>
+            {{ form_start(villeForm) }}
+            <td>{{ form_row(villeForm.nom) }}</td>
+            <td>{{ form_row(villeForm.codePostal) }}</td>
+            <td><button class="btn-sortie btn-gerer">Valider</button></td>
+            {{ form_end(villeForm) }}
+        </tr>
+        </tbody>
+    </table>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/gerer_ville.js') }}"></script>
